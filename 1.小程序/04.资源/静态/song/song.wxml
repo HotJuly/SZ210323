@@ -1,0 +1,29 @@
+<view class="songContainer isplay">
+  <text>想你的液</text>
+  <view class="keng"></view>
+  <image class="needle" src="/static/images/song/needle.png"></image>
+  <view class="discContainer">
+    <image class="disc" src="/static/images/song/disc.png"></image>
+    <image class="bigImg" src="/static/images/nvsheng.jpg"></image>
+  </view>
+
+  <!-- 进度条区域 -->
+  <view class="barContainer">
+    <text class="currentTime">00:00</text>
+    <view class="wrap">
+      <view class="inner" style="width:30%">
+        <view class="point"></view>
+      </view>
+    </view>
+    <text class="durationTime">99:99</text>
+  </view>
+
+  <!-- 音乐控制器 -->
+  <view class="musicControl">
+    <text class="iconfont icon-iconsMusicyemianbofangmoshiShuffle" ></text>
+    <text class="iconfont icon-shangyishou" id="pre"></text>
+    <text class="iconfont big icon-bofang"></text>
+    <text class="iconfont icon-next" id="next"></text>
+    <text class="iconfont icon-iconsMusicyemianbofangmoshiPlayList"></text>
+  </view>
+</view>
