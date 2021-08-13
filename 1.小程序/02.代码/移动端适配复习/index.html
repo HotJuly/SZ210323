@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        img{
+            /* width:187px;
+            height:187px; */
+            /* width:50%;
+            height:187px; */
+            /* width:50vw;
+            height:50vw; */
+            width:5rem;
+            height:5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        视口一共有三个,分别:布局视口,视觉视口,完美视口
+        实际存在2个:布局视口和视觉视口
+        完美视口的意思:当布局视口和视觉视口的大小一致,当前状态可以成为理想(完美)视口
+        布局视口:布局视口决定了一共有多少东西(html标签就可以理解为布局视口)
+        视觉视口:视觉视口决定了你能看到多少东西
+        滚动条:滚动条就是布局视口大于视觉视口的情况下,会出现的产物
+
+
+        布局视口大小如何得知?
+            如果没有实现meta标签,那么默认的布局视口宽度是980px
+
+        想要实现完美视口状态,只能把布局视口变成和视觉视口一样大
+            可以通过meta标签控制布局视口大小
+            <meta name="viewport" content="width=device-width" />
+            <meta name="viewport" content="initial-scale=1" />
+                initial-scale=视觉视口宽度/布局视口宽度
+                initial-scale和width=device-width谁的计算结果更大,就以谁的为准
+
+        实现移动端适配方案:
+            1.百分比
+                该方案有缺陷,因为宽高的百分比参考于父级的宽高
+            2.vw/vh
+                100vw=屏幕宽度
+                100vh=屏幕高度
+                缺点:该属性是CSS3属性,兼容性可能存在问题
+            3.rem(一个全页面共享的单位,root em)
+                前提:
+                    rem想要实现适配,必须处于理想视口状态
+                    rem想要实现适配,需要js配合
+     -->
+     <div style="width:20px;height:20px">
+        <img src="./1.webp" alt="">
+    </div>
+    <script>
+        var width = document.documentElement.clientWidth;
+        // console.log(width)
+        var fontSize = width/10;
+        document.documentElement.style.fontSize = fontSize + "px";
+    </script>
+</body>
+</html>
