@@ -5,14 +5,31 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    msg:"我是初始化数据"
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // console.log('msg', this.data.msg)
+    // this.data.msg ="我是修改之后的数据"
+    this.setData({
+      msg:"我是修改之后的数据"
+    })
+    this.setData({
+      msg: "我是修改之后的数据1"
+    })
+    this.setData({
+      msg: "我是修改之后的数据2"
+    })
+    this.setData({
+      msg: "我是修改之后的数据3"
+    })
+    this.setData({
+      msg: "我是修改之后的数据4"
+    })
+    console.log('msg', this.data.msg)
   },
 
   /**

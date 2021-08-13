@@ -1,5 +1,5 @@
 <view class="indexContainer">
   <image class="avatarImg" src="/static/images/dazuo.jpeg"></image>
-  <text class="username">你好,大佐阁下</text>
+  <text class="username">你好,{{msg}}</text>
   <button class="welcome">欢迎来到尚硅谷</button>
 </view>
