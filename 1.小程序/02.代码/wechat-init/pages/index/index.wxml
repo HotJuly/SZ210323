@@ -7,14 +7,21 @@
  -->
 
 <view class="indexContainer">
-  <image class="avatarImg" src="{{userInfo.avatarUrl}}"></image>
+  <open-data type="userAvatarUrl"></open-data>
+  <!-- <image class="avatarImg" src="{{userInfo.avatarUrl}}"></image> -->
   <text class="username"bindtap="handleClick1">你好,{{userInfo.nickName}}</text>
+  <open-data type="userNickName"></open-data>
   <view>
-    <button class="welcome"
+    <!-- <button class="welcome"
       open-type="getUserInfo"
       bindgetuserinfo="getUserInfo"
      bindtap="handleClick"
-     >欢迎来到尚硅谷</button>
+     >欢迎来到尚硅谷</button> -->
+    <!-- <button class="welcome"
+     bindtap="handleClick"
+     >欢迎来到尚硅谷</button> -->
+     <text>{{cityInfo}}</text>
+     <button bindtap="getLocation">获取用户当前位置</button>
   </view>
   <!-- <text>index
     <view>hello</view>  

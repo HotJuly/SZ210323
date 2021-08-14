@@ -1,5 +1,6 @@
 // pages/index/index.js
 // 注册页面,可以重复注册,每次调用都会生成一个页面实例
+const citySelector = requirePlugin('citySelector');
 Page({
 
   /**
@@ -7,7 +8,18 @@ Page({
    */
   data: {
     msg:"我是初始化数据",
-    userInfo:{}
+    userInfo:{},
+    cityInfo:""
+  },
+
+  getLocation(){
+    const key = 'BZ7BZ-QQWCU-DHWV2-BFJJG-B2JZF-KSBT3'; // 使用在腾讯位置服务申请的key
+    const referer = '七月入栈'; // 调用插件的app的名称
+    const hotCitys = '北京,上海,深圳,武汉'; // 用户自定义的的热门城市
+
+    wx.navigateTo({
+      url: `plugin://citySelector/index?key=${key}&referer=${referer}&hotCitys=${hotCitys}`
+    })
   },
 
   handleClick(){
@@ -18,6 +30,22 @@ Page({
     // wx.redirectTo({
     //   url: '../log/log',
     // })
+
+
+    if (wx.canIUse('getUserProfile')) {
+      wx.getUserProfile({
+        desc: "用于项目测试",
+        success: (detail) => {
+          // console.log('res', res)
+          this.setData({
+            userInfo: detail.userInfo
+          })
+        },
+        fail(){
+          console.log('fail')
+        }
+      })
+    }
   },
 
   handleParent() {
@@ -69,14 +97,30 @@ Page({
     // })
     // console.log('msg', this.data.msg)
 
-    wx.getUserInfo({
-      success:(detail)=>{
-        // console.log('detail', detail)
-        this.setData({
-          userInfo: detail.userInfo
-        })
-      }
-    })
+    // wx.getUserInfo({
+    //   success:(detail)=>{
+    //     // console.log('detail', detail)
+    //     this.setData({
+    //       userInfo: detail.userInfo
+    //     })
+    //   }
+    // })
+
+    // wx.getUserProfile({
+    //   desc:"用于项目测试",
+    //   success:(res)=>{
+    //     console.log('res', res)
+    //   }
+    // })
+    // console.log('1', wx.canIUse('getUserProfile'))
+    // if (wx.canIUse('getUserProfile')){
+    //   wx.getUserProfile({
+    //     desc:"用于项目测试",
+    //     success:(res)=>{
+    //       console.log('res', res)
+    //     }
+    //   })
+    // }
 
   },
 
@@ -91,7 +135,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const selectedCity = citySelector.getCity();
+    console.log('selectedCity', selectedCity)
+    this.setData({
+      cityInfo: selectedCity.fullname
+    })
   },
 
   /**
