@@ -1,4 +1,5 @@
 // pages/index/index.js
+// 注册页面,可以重复注册,每次调用都会生成一个页面实例
 Page({
 
   /**
@@ -8,28 +9,49 @@ Page({
     msg:"我是初始化数据"
   },
 
+  handleClick(){
+    // console.log('handleClick')
+    // wx.navigateTo({
+    //   url: '/pages/log/log',
+    // })
+    wx.redirectTo({
+      url: '../log/log',
+    })
+  },
+
+  handleParent() {
+    console.log('handleParent')
+  },
+
+  handleClick1(){
+    this.setData({
+      msg: "我是修改之后的数据"
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    debugger
     // console.log('msg', this.data.msg)
     // this.data.msg ="我是修改之后的数据"
-    this.setData({
-      msg:"我是修改之后的数据"
-    })
-    this.setData({
-      msg: "我是修改之后的数据1"
-    })
-    this.setData({
-      msg: "我是修改之后的数据2"
-    })
-    this.setData({
-      msg: "我是修改之后的数据3"
-    })
-    this.setData({
-      msg: "我是修改之后的数据4"
-    })
-    console.log('msg', this.data.msg)
+    // this.setData({
+    //   msg:"我是修改之后的数据"
+    // })
+    // this.setData({
+    //   msg: "我是修改之后的数据1"
+    // })
+    // this.setData({
+    //   msg: "我是修改之后的数据2"
+    // })
+    // this.setData({
+    //   msg: "我是修改之后的数据3"
+    // })
+    // this.setData({
+    //   msg: "我是修改之后的数据4"
+    // })
+    // console.log('msg', this.data.msg)
   },
 
   /**

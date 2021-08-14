@@ -1,2 +1,4 @@
-<!--pages/log/log.wxml-->
-<text>pages/log/log.wxml</text>
+
+<view>
+  <button bindtap="toIndex">toIndex</button>
+</view>

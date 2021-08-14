@@ -1,5 +1,18 @@
+<!-- 
+  小程序不是一个WEB,他没有遵守W3C规范
+  view->它相当于html中的div,可以进行区域的划分
+  text->它相当于html中的span,可以用来显示文本(该标签是弟中弟,内部不能嵌套其余标签,否则会显示失败)
+  image->它相当于html中的img,可以用来显示图片资源(但是功能比img更强大)
+  button->它相当于html中的button,可以具有默认样式,并实现点击交互效果变化(该组件其实很强,只是暂时还没用到)
+ -->
+
 <view class="indexContainer">
   <image class="avatarImg" src="/static/images/dazuo.jpeg"></image>
-  <text class="username">你好,{{msg}}</text>
-  <button class="welcome">欢迎来到尚硅谷</button>
+  <text class="username"bindtap="handleClick1">你好,{{msg}}</text>
+  <view>
+    <button class="welcome" bindtap="handleClick">欢迎来到尚硅谷</button>
+  </view>
+  <!-- <text>index
+    <view>hello</view>  
+  </text> -->
 </view>

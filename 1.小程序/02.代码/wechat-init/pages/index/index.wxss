@@ -1,4 +1,5 @@
 /* pages/index/index.wxss */
+/* 写在当前内部的样式,只会作用于当前页面,相当于Vue中style标签写了scoped */
 .indexContainer{
   height:100%;
   background: pink;
