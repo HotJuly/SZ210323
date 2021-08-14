@@ -7,10 +7,14 @@
  -->
 
 <view class="indexContainer">
-  <image class="avatarImg" src="/static/images/dazuo.jpeg"></image>
-  <text class="username"bindtap="handleClick1">你好,{{msg}}</text>
+  <image class="avatarImg" src="{{userInfo.avatarUrl}}"></image>
+  <text class="username"bindtap="handleClick1">你好,{{userInfo.nickName}}</text>
   <view>
-    <button class="welcome" bindtap="handleClick">欢迎来到尚硅谷</button>
+    <button class="welcome"
+      open-type="getUserInfo"
+      bindgetuserinfo="getUserInfo"
+     bindtap="handleClick"
+     >欢迎来到尚硅谷</button>
   </view>
   <!-- <text>index
     <view>hello</view>  

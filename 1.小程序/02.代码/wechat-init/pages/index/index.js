@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    msg:"我是初始化数据"
+    msg:"我是初始化数据",
+    userInfo:{}
   },
 
   handleClick(){
@@ -14,9 +15,9 @@ Page({
     // wx.navigateTo({
     //   url: '/pages/log/log',
     // })
-    wx.redirectTo({
-      url: '../log/log',
-    })
+    // wx.redirectTo({
+    //   url: '../log/log',
+    // })
   },
 
   handleParent() {
@@ -29,11 +30,26 @@ Page({
     })
   },
 
+  getUserInfo(res){
+    // 该回调函数可以成功触发,但是无论用户点击确定还是取消都会触发
+    // 框架想要给开发者传递数据,一般在两个位置上:1.this 2.形参
+    // 通过res.detail.userInfo可以获取到用户个人信息
+    // 当用户授权成功一次之后,授权状态会在手机上缓存,后续不会在出现授权弹窗
+    console.log('getUserInfo', res)
+    // 判断当前用户点击的到底是哪个按钮
+    if (res.detail.rawData){
+      // 能进入这里就说明用户点击了允许授权
+      this.setData({
+        userInfo: res.detail.userInfo
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    debugger
+    // debugger
     // console.log('msg', this.data.msg)
     // this.data.msg ="我是修改之后的数据"
     // this.setData({
@@ -52,6 +68,16 @@ Page({
     //   msg: "我是修改之后的数据4"
     // })
     // console.log('msg', this.data.msg)
+
+    wx.getUserInfo({
+      success:(detail)=>{
+        // console.log('detail', detail)
+        this.setData({
+          userInfo: detail.userInfo
+        })
+      }
+    })
+
   },
 
   /**
