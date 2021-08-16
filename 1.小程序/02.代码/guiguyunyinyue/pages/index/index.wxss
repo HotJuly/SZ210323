@@ -36,30 +36,6 @@
 
 
 
-/* 
-header区域开始
- */
-
-.header .title{
-  font-size:28rpx;
-}
-.header .moreContent .moreTitle{
-  float:left;
-  font-size:30rpx;
-}
-
-.header .moreContent .more{
-  float:right;
-  font-size:24rpx;
-  border:1rpx solid;
-  padding:10rpx 20rpx;
-  border-radius: 5rpx;
-}
-
-
-/* 
-header区域结束
- */
 
 .indexContainer .recommendContainer .recommendScroll{
    display:flex;
@@ -114,4 +90,42 @@ header区域结束
    -webkit-line-clamp:2;
    -webkit-box-orient:vertical;
    /* text-overflow:ellipsis; */
+}
+
+.topContainer{
+  padding:0rpx 20rpx;
+}
+
+.topContainer .topSwiper{
+  height:350rpx;
+}
+
+.topContainer .topSwiper .topItem {
+  background: pink;
+  width:97%;
+}
+
+.topContainer .topSwiper .topItem .topContent{
+  display:flex;
+  align-items:center;
+}
+
+.topContainer .topSwiper .topItem .topContent .topImg{
+  width:100rpx;
+  height:100rpx;
+  flex-shrink: 0;
+}
+
+.topContainer .topSwiper .topItem .topContent .topIndex{
+  width:100rpx;
+  height:100rpx;
+  text-align: center;
+  line-height:100rpx;
+  flex-shrink: 0;
+}
+
+.topContainer .topSwiper .topItem .topContent .topName{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

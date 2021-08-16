@@ -44,19 +44,8 @@
   </view>
 
   <view class="recommendContainer">
-    <view class="header">
-      <view class="title">
-        推荐歌曲
-      </view>
-      <view class="moreContent">
-        <view class="moreTitle">
-          为你精心推荐
-        </view>
-        <view class="more">
-          查看更多
-        </view>
-      </view>
-    </view>
+    <!-- NavHeader -->
+    <NavHeader title="推荐歌曲" moreTitle="为你精心推荐"/>
     <scroll-view 
     enable-flex
     scroll-x
@@ -69,6 +58,94 @@
         <text class="songTitle">{{item.name}}</text>
       </view>
     </scroll-view>
-    123
+  </view>
+
+  <view class="topContainer">
+    <NavHeader title="排行榜" moreTitle="热歌风向标"/>
+    <swiper 
+    next-margin="50"
+    snap-to-edge
+    class="topSwiper">
+      <swiper-item>
+        <view class="topItem">
+          <view class="topTitle">中国总榜</view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们还是我们还是我们还是我们还是我们还是我们还是我们还是我们还是我们还是我们</view>
+          </view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="topItem">
+          <view class="topTitle">中国总榜</view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="topItem">
+          <view class="topTitle">中国总榜</view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="topItem">
+          <view class="topTitle">中国总榜</view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+          <view class="topContent">
+            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
+            <view class="topIndex">1</view>
+            <view class="topName">还是我们</view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
   </view>
 </view>
