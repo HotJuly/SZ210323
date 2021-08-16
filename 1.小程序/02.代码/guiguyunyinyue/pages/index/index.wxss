@@ -1,0 +1,116 @@
+.indexContainer .bannerSwiper .bannerItem .bannerImg{
+  width:100%;
+  height:100%;
+}
+
+.indexContainer .nav{
+  display:flex;
+  justify-content:space-around;
+}
+
+.indexContainer .nav .navItem{
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+.indexContainer .nav .navItem .iconfont{
+  width:100rpx;
+  height:100rpx;
+  background: rgb(240,16,16);
+  border-radius: 50%;
+  line-height: 100rpx;
+  font-size:50rpx;
+  color:white;
+  margin:20rpx 0;
+}
+
+.indexContainer .nav .navItem .navTitle{
+  font-size:28rpx;
+}
+
+.indexContainer .recommendContainer{
+  padding:0 20rpx;
+}
+
+
+
+/* 
+header区域开始
+ */
+
+.header .title{
+  font-size:28rpx;
+}
+.header .moreContent .moreTitle{
+  float:left;
+  font-size:30rpx;
+}
+
+.header .moreContent .more{
+  float:right;
+  font-size:24rpx;
+  border:1rpx solid;
+  padding:10rpx 20rpx;
+  border-radius: 5rpx;
+}
+
+
+/* 
+header区域结束
+ */
+
+.indexContainer .recommendContainer .recommendScroll{
+   display:flex;
+ }
+
+.indexContainer .recommendContainer .recommendScroll .recommendItem{
+     margin-right:20rpx;
+     width:200rpx;
+     display:flex;
+     flex-direction: column;
+     /* 
+      将元素变成块元素的方法:
+        1.display:block
+        2.父级添加display:flex
+        3.position:absolute||fixed
+        4.float:left||right
+      */
+   }
+
+.indexContainer .recommendContainer .recommendScroll .recommendItem .songImg{
+    width:200rpx;
+    height:200rpx;
+    border-radius: 20rpx;
+  }
+
+.indexContainer .recommendContainer .recommendScroll .recommendItem .songTitle{
+  /* 
+    单行文本溢出隐藏,并展示省略号
+    1.单行文本
+    2.溢出隐藏
+    3.并展示省略号
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+
+    多行文本溢出隐藏,并显示省略号
+    1.开启webkit盒模型
+    display:-webkit-box;
+
+    2.告知几行之后进行溢出隐藏,并显示省略号
+    -webkit-line-clamp:2;
+
+    3.告知当前元素内部文本排列方向
+    -webkit-box-orient:vertical;
+   */
+   /* display:block; */
+   width:200rpx;
+   overflow:hidden;
+   display:-webkit-box;
+   -webkit-line-clamp:2;
+   -webkit-box-orient:vertical;
+   /* text-overflow:ellipsis; */
+}
