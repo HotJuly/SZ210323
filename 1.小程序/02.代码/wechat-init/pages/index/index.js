@@ -137,9 +137,11 @@ Page({
   onShow: function () {
     const selectedCity = citySelector.getCity();
     console.log('selectedCity', selectedCity)
-    this.setData({
-      cityInfo: selectedCity.fullname
-    })
+    if (selectedCity) {
+      this.setData({
+        cityInfo: selectedCity.fullname
+      })
+    }
   },
 
   /**
