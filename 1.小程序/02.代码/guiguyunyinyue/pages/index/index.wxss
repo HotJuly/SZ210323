@@ -63,6 +63,7 @@ header区域结束
 
 .indexContainer .recommendContainer .recommendScroll{
    display:flex;
+   height:300rpx;
  }
 
 .indexContainer .recommendContainer .recommendScroll .recommendItem{

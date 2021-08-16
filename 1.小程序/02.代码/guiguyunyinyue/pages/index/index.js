@@ -1,3 +1,4 @@
+import req from '../../utils/req.js';
 Page({
 
   /**
@@ -5,13 +6,15 @@ Page({
    */
   data: {
     // 该数据用于首页轮播图展示
-    banners:[]
+    banners: [],
+    // 该数据用于推荐歌曲列表展示
+    recommendList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad:async function (options) {
     /*
       1.在哪发
         Vue中一般是在created或者mounted中发送请求
@@ -25,21 +28,42 @@ Page({
           2.请求方式
           3.请求参数
      */
-    // console.log('window', window)
-    console.log(1)
-    wx.request({
-      url:"http://localhost:3000/banner",
-      data:{
-        type:2
-      },
-      success:(res)=>{
-        // console.log('res',res)
-        this.setData({
-          banners:res.data.banners
-        })
-      }
+    let result = await req('/banner',{type:2});
+    console.log('result',result)
+    this.setData({
+      banners:result.banners
     })
-    console.log(2)
+    // console.log('window', window)
+    // console.log(1)
+    // wx.request({
+    //   url:"http://localhost:3000/banner",
+    //   data:{
+    //     type:2
+    //   },
+    //   success:(res)=>{
+    //     // console.log('res',res)
+    //     this.setData({
+    //       banners:res.data.banners
+    //     })
+    //   }
+    // })
+    // console.log(2)
+
+
+    // wx.request({
+    //   url: "http://localhost:3000/personalized",
+    //   success: (res) => {
+    //     // console.log('res',res)
+    //     this.setData({
+    //       recommendList: res.data.result
+    //     })
+    //   }
+    // })
+
+    let result1 = await req('/personalized');
+    this.setData({
+      recommendList: result1.result
+    })
   },
 
   /**

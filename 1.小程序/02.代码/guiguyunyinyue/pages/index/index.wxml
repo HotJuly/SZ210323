@@ -7,20 +7,16 @@
   indicator-color="ivory"
   indicator-active-color="#d43c33"
   class="bannerSwiper">
-    <swiper-item class="bannerItem">
-      <image class="bannerImg" src="/static/images/dazuo.jpeg"></image>
-    </swiper-item>
-    <swiper-item class="bannerItem">
-      <image class="bannerImg" src="/static/images/dazuo.jpeg"></image>
-    </swiper-item>
-    <swiper-item class="bannerItem">
-      <image class="bannerImg" src="/static/images/dazuo.jpeg"></image>
-    </swiper-item>
-    <swiper-item class="bannerItem">
-      <image class="bannerImg" src="/static/images/dazuo.jpeg"></image>
-    </swiper-item>
-    <swiper-item class="bannerItem">
-      <image class="bannerImg" src="/static/images/dazuo.jpeg"></image>
+    <!-- <swiper-item 
+    v-for="item in banners"
+    :key="item.id"
+    class="bannerItem"> -->
+    <swiper-item 
+    wx:for="{{banners}}"
+    wx:key="id"
+    wx:for-item="banner"
+    class="bannerItem">
+      <image class="bannerImg" src="{{banner.pic}}"></image>
     </swiper-item>
   </swiper>
 
@@ -65,38 +61,14 @@
     enable-flex
     scroll-x
     class="recommendScroll">
-      <view class="recommendItem">
-        <image class="songImg" src="/static/images/dazuo.jpeg"></image>
-        <text class="songTitle">大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一</text>
-      </view>
-      <view class="recommendItem">
-        <image class="songImg" src="/static/images/dazuo.jpeg"></image>
-        <text class="songTitle">大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一</text>
-      </view>
-      <view class="recommendItem">
-        <image class="songImg" src="/static/images/dazuo.jpeg"></image>
-        <text class="songTitle">大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一</text>
-      </view>
-      <view class="recommendItem">
-        <image class="songImg" src="/static/images/dazuo.jpeg"></image>
-        <text class="songTitle">大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一</text>
-      </view>
-      <view class="recommendItem">
-        <image class="songImg" src="/static/images/dazuo.jpeg"></image>
-        <text class="songTitle">大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一</text>
-      </view>
-      <view class="recommendItem">
-        <image class="songImg" src="/static/images/dazuo.jpeg"></image>
-        <text class="songTitle">大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一</text>
-      </view>
-      <view class="recommendItem">
-        <image class="songImg" src="/static/images/dazuo.jpeg"></image>
-        <text class="songTitle">大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一</text>
-      </view>
-      <view class="recommendItem">
-        <image class="songImg" src="/static/images/dazuo.jpeg"></image>
-        <text class="songTitle">大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一大佐天下第一</text>
+      <view class="recommendItem"
+        wx:for="{{recommendList}}"
+        wx:key="id"
+      >
+        <image class="songImg" src="{{item.picUrl}}"></image>
+        <text class="songTitle">{{item.name}}</text>
       </view>
     </scroll-view>
+    123
   </view>
 </view>
