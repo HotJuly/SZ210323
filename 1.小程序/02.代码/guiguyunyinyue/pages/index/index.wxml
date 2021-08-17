@@ -4,7 +4,6 @@
   <swiper 
   indicator-dots
   circular
-  indicator-color="ivory"
   indicator-active-color="#d43c33"
   class="bannerSwiper">
     <!-- <swiper-item 
@@ -16,6 +15,7 @@
     wx:key="id"
     wx:for-item="banner"
     class="bannerItem">
+      <!-- <text>{{banner}}</text> -->
       <image class="bannerImg" src="{{banner.pic}}"></image>
     </swiper-item>
   </swiper>
@@ -54,7 +54,7 @@
         wx:for="{{recommendList}}"
         wx:key="id"
       >
-        <image class="songImg" src="{{item.picUrl}}"></image>
+        <image class="songImg" lazy-load src="{{item.picUrl}}"></image>
         <text class="songTitle">{{item.name}}</text>
       </view>
     </scroll-view>
@@ -66,83 +66,18 @@
     next-margin="50"
     snap-to-edge
     class="topSwiper">
-      <swiper-item>
+      <swiper-item wx:for="{{topList}}" wx:key="id">
         <view class="topItem">
-          <view class="topTitle">中国总榜</view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们还是我们还是我们还是我们还是我们还是我们还是我们还是我们还是我们还是我们</view>
-          </view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-        </view>
-      </swiper-item>
-      <swiper-item>
-        <view class="topItem">
-          <view class="topTitle">中国总榜</view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-        </view>
-      </swiper-item>
-      <swiper-item>
-        <view class="topItem">
-          <view class="topTitle">中国总榜</view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-        </view>
-      </swiper-item>
-      <swiper-item>
-        <view class="topItem">
-          <view class="topTitle">中国总榜</view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
-          </view>
-          <view class="topContent">
-            <image class="topImg" src="/static/images/dazuo.jpeg"></image>
-            <view class="topIndex">1</view>
-            <view class="topName">还是我们</view>
+          <view class="topTitle">{{item.name}}</view>
+          <view class="topContent" 
+          wx:for="{{item.list}}" 
+          wx:key="id"
+          wx:for-item="topItem"
+          wx:for-index="topIndex"
+          >
+            <image class="topImg" src="{{topItem.al.picUrl}}"></image>
+            <view class="topIndex">{{topIndex +1}}</view> 
+            <view class="topName">{{topItem.name}}</view>
           </view>
         </view>
       </swiper-item>

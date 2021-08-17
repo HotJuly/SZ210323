@@ -24,6 +24,8 @@ export default function (url, data={}, method="GET") {
       success: (res) => {
         // console.log('res', res)
         // result = res;
+
+        // 此操作等同于axios中响应拦截器的return response.data
         resolve(res.data)
         // this.setData({
         //   banners: res.data.banners

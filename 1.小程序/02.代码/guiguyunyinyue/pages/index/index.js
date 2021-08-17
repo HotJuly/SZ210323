@@ -8,7 +8,9 @@ Page({
     // 该数据用于首页轮播图展示
     banners: [],
     // 该数据用于推荐歌曲列表展示
-    recommendList:[]
+    recommendList: [],
+    // 该数据用于排行榜列表展示
+    topList:[]
   },
 
   /**
@@ -28,11 +30,21 @@ Page({
           2.请求方式
           3.请求参数
      */
-    let result = await req('/banner',{type:2});
-    console.log('result',result)
-    this.setData({
-      banners:result.banners
+    // let result = await req('/banner',{type:2});
+    // // console.log('result',result)
+    // this.setData({
+    //   banners:result.banners
+    // })
+
+
+    req('/banner', { type: 2 }).then((result) => {
+      this.setData({
+        banners: result.banners
+      })
     })
+
+
+
     // console.log('window', window)
     // console.log(1)
     // wx.request({
@@ -60,9 +72,33 @@ Page({
     //   }
     // })
 
-    let result1 = await req('/personalized');
+    // let result1 = await req('/personalized');
+    // this.setData({
+    //   recommendList: result1.result
+    // })
+
+
+    req('/personalized').then((result1) => {
+      this.setData({
+        recommendList: result1.result
+      })
+    })
+
+    let topList = [];
+    let arr = [1,4,9,20];
+    let index = 0;
+    while(index<arr.length){
+      let { playlist } = await req('/top/list', { idx: arr[index++] });
+      // console.log(topData)
+      let obj = {};
+      obj.name = playlist.name;
+      obj.id = playlist.id;
+      obj.list = playlist.tracks.slice(0, 3);
+      // console.log('obj', obj)
+      topList.push(obj);
+    }
     this.setData({
-      recommendList: result1.result
+      topList
     })
   },
 
