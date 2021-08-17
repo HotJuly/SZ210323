@@ -1,44 +1,48 @@
-// pages/personal/personal.js
+// pages/login/login.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    moveDistance:0,
-    moveTransition:""
+    phone:"17688197777",
+    password:""
   },
 
-  // 用于监视用户手指按下事件
-  handleTouchStart(event){
-    // touches数组用于收集当前屏幕上所有的手指信息
-    // changedTouches数组用于收集当前屏幕上正在变化的手指信息
-    // console.log('handleTouchStart', event)
-    this.startY  = event.touches[0].clientY;
-    // console.log(startY)
+  handlePhone(event){
+    // console.log('handlePhone', event)
+    // 收集用户输入数据,并更新到data中
+    // 1.获取用户输入内容
+    let value = event.detail.value;
     this.setData({
-      moveTransition:""
+      phone:value
     })
   },
 
-  // 用于监视用户手指移动事件
-  handleTouchMove(event) {
-    // console.log('handleTouchMove', event)
-    let moveY = event.touches[0].clientY;
-    let moveDistance = moveY - this.startY;
-    if(moveDistance>80 || moveDistance<0)return;
+  handlePassword(event) {
+    // console.log('handlePassword')
+    let value = event.detail.value;
     this.setData({
-      moveDistance
+      password: value
     })
   },
 
-  // 用于监视用户手指抬起事件
-  handleTouchEnd(event) {
-    // console.log('handleTouchEnd', event)
+  handleInput(event) {
+    /*
+      小程序组件向事件回调函数内部传参
+        解决:通过组件的标签属性,可以向事件回调函数内部传参
+    
+     */
+    // console.log('handleInput', event.target.dataset.type)
+    console.log('handleInput', event.target)
+    let type = event.target.dataset.type;
+    let value = event.detail.value;
     this.setData({
-      moveDistance:0,
-      moveTransition:"transform 1s"
+      [type]: value
     })
+    // return function () {
+    //   console.log('handleInput')
+    // }
   },
 
   /**
