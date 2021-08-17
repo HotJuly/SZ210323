@@ -6,7 +6,16 @@ Page({
    */
   data: {
     moveDistance:0,
-    moveTransition:""
+    moveTransition:"",
+    userInfo:{}
+  },
+
+  toLogin(){
+    if(!this.data.userInfo.nickname) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
   },
 
   // 用于监视用户手指按下事件
@@ -59,7 +68,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let userInfo = JSON.parse(wx.getStorageSync('userInfo')||'{}');
+    // console.log('userInfo', userInfo)
+    this.setData({
+      userInfo
+    })
   },
 
   /**

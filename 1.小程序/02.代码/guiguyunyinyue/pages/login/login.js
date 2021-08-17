@@ -103,6 +103,7 @@ Page({
       200(){
         // 该函数用于登录成功状态
         // console.log('登录成功')
+        wx.setStorageSync("userInfo",JSON.stringify(result.profile))
         wx.showToast({
           icon: "none",
           title: '登录成功,即将跳转',
