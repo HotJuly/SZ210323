@@ -11,7 +11,7 @@
         <input id="phone" 
         type="text"
         data-type="phone"
-        bindinput="handleInput" 
+        bindchange="handleInput" 
         value="{{phone}}"
          placeholder="请输入手机号码"/>
       </view>
@@ -20,12 +20,12 @@
         <input id="password" 
         type="password"
         data-type="password"
-        bindinput="handleInput"  
+        bindchange="handleInput"  
         value="{{password}}"  
         placeholder="请输入密码"/>
       </view>
     </view>
-    <button class="confirm-btn">登录</button>
+    <button class="confirm-btn" bindtap="handleLogin">登录</button>
     <view class="forget-section">
       忘记密码?
     </view>

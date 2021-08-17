@@ -1,3 +1,14 @@
+/*
+缺点：
+1.wxs文件不支持ES6+语法
+2.wxs文件只能引入wxs文件（不能使用npm包）
+
+优点：
+1.在于视图层进行频繁交互的情况下
+wxs文件的性能优于js文件(性能可以达到10倍的差距)
+
+ */
+
 var moveDistance;
 var startY;
 var cover;
