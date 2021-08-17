@@ -1,0 +1,35 @@
+var moveDistance;
+var startY;
+var cover;
+
+// 用于监视用户手指按下事件
+function handleTouchStart(event, instance){
+  // console.log('handleTouchStart')
+  startY = event.touches[0].clientY;
+  cover = instance.selectComponent('.cover-container');
+}
+
+// 用于监视用户手指移动事件
+function handleTouchMove(event,instance) {
+  // instance内部存储当前页面实例
+  var moveY = event.touches[0].clientY;
+  var moveDistance = moveY - startY;
+  if (moveDistance > 80 || moveDistance < 0) return;
+  cover.setStyle({
+    "transform": "translateY(" + moveDistance +"rpx)"
+  })
+}
+
+// 用于监视用户手指抬起事件
+function handleTouchEnd(event) {
+  cover.setStyle({
+    "transform": "translateY(0rpx)",
+    "transition": "transform 1s"
+  })
+}
+
+module.exports = {
+  handleTouchStart: handleTouchStart,
+  handleTouchMove: handleTouchMove,
+  handleTouchEnd: handleTouchEnd
+}
