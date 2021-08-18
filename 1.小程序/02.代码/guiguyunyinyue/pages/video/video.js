@@ -1,5 +1,6 @@
 // pages/video/video.js
 import req from '../../utils/req.js';
+import hasPermission from '../../utils/hasPermission.js';
 Page({
 
   /**
@@ -10,7 +11,27 @@ Page({
     navList:[],
     currentId:null,
     videoList:[],
-    trigger:false
+    trigger:false,
+    videoId:null
+  },
+
+  // 用于监视用户点击图片,想要播放视频的操作
+  switchVideo(event){
+    console.log('switchVideo')
+
+    const videoId = event.target.id;
+
+    // 为了显示出对应的video组件,需要修改状态数据videoId
+    // setData同步修改数据,异步渲染页面
+    // setData第二个参数,需要是函数,该函数会在页面更新之后才会执行
+    // 如果是Vue,.会使用$nextTick,可以保证某些js代码,在DOM更新之后才执行
+    this.setData({
+      videoId
+    },()=>{
+      let videoContext = wx.createVideoContext(videoId);
+      videoContext.play();
+    });
+
   },
 
   // 用于监视用户上拉scroll-view触底操作
@@ -122,6 +143,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow:async function () {
+    // 检查用户是否已经登录
+    // 如果用户没有登录,弹出模态对话框,引导用户前往不同页面
+    if(!hasPermission())return;
+
+
     // 用于请求导航列表数据
     let navListData = await req('/video/group/list');
     this.setData({
