@@ -1,3 +1,6 @@
 小程序中,转发的渠道一共有两种
 	1.用户点击右上角转发按钮,会触发事件监听onShareAppMessage
 	2.用户点击分享的button按钮,会触发事件监听onShareAppMessage
+
+问题:如何自定义转发的内容
+	

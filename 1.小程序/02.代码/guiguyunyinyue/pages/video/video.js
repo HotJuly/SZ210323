@@ -9,9 +9,67 @@ Page({
     // 用于导航列表显示
     navList:[],
     currentId:null,
-    videoList:[]
+    videoList:[],
+    trigger:false
   },
 
+  // 用于监视用户上拉scroll-view触底操作
+  handleScrollToLower(){
+    // console.log('handleScrollToLower')
+    setTimeout(()=>{
+      this.setData({
+        videoList: [...this.data.videoList, ...this.data.videoList]
+      })
+    },1000)
+  },
+
+  // 用于监视用户下拉scroll-view组件操作
+  async handlePullDown(){
+    // console.log('handlePullDown')
+    await this.getVideoList();
+    this.setData({
+      trigger:false
+    })
+  },
+
+  // 当前函数,仅用于测试视频播放API
+  testAPI(){
+    // console.log('testAPI')
+    // 用于测试的第一个视频id
+    const id ='50A645DFDA46157CBBE0557089989D8C';
+
+    // 用于创建对应video标签的上下文对象
+    const videoContext = wx.createVideoContext(id);
+
+    // 使用上下文对象的pause方法暂停该视频的播放
+    videoContext.pause()
+  },
+
+  // 用于监视视频的播放状态,如果视频开始或者继续播放,都会触发当前函数
+  handlePlay(event){
+    // console.log('handlePlay')
+    /*
+      1.暂停上一个视频的播放(使用this.oldId来存储上一次的id)
+      2.将当前的视频id记录下来,用作下次使用
+
+      问题一:第一次播放视频,是没有上一次的
+      问题二:上一次播放的视频也是自己
+     */
+
+    const id = event.target.id;
+
+    if (this.oldId&&this.oldId!==id) {
+      // 用于创建对应video标签的上下文对象
+      const videoContext = wx.createVideoContext(this.oldId);
+
+      // 使用上下文对象的pause方法暂停该视频的播放
+      videoContext.pause();
+    }
+
+    this.oldId = id;
+  },
+
+  // 用于请求最新的视频列表数据
   async getVideoList(){
     //用于请求视频列表数据
     let videoListData = await req('/video/group', { id: this.data.currentId });
@@ -22,7 +80,7 @@ Page({
       videoList
     })
 
-    console.log('1')
+    // console.log('1')
   },
 
   // 用于监视用户点击导航栏操作,并动态切换导航栏下划线展示
@@ -42,7 +100,7 @@ Page({
       title:"正在加载,请稍等"
     })
     await this.getVideoList();
-    console.log('2')
+    // console.log('2')
     wx.hideLoading({});
   },
 
@@ -93,28 +151,37 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh:async function () {
+    // console.log('onPullDownRefresh')
+    // 用于请求导航列表数据
+    let navListData = await req('/video/group/list');
+    this.setData({
+      navList: navListData.data.slice(0, 13),
+      currentId: navListData.data[0].id
+    });
 
+    // 封装请求视频列表函数
+    this.getVideoList();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    // 想要触发该事件函数,必须要有系统滚动条
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function ({ from,target}) {
-    console.log('onShareAppMessage', from, target)
+  onShareAppMessage: function ({from,target}) {
+    // console.log('onShareAppMessage', from, target)
     /*
       当用户点击右上角转发按钮,应该转发的内容是小程序logo,小程序名称
       当用户点击某个button按钮进行转发,应该转发的内容是当前视频图片和名称
       问题:如何区分用户触发当前事件监听的渠道
       解决:可以通过形参中的from属性,判断用户触发的渠道
-      
+
       问题:如何自定义转发内容
       解决:通过return一个对象,可以实现转发内容的自定义效果
     */
@@ -127,6 +194,7 @@ Page({
       }
     } else if (from === "button") {
       // 说明用户是点击button按钮进入的
+      // target相当于之前的event.target,此处target可以获取到button组件
       // 注意:自定义属性的属性名只能是小写,大写也会默认转为小写
       const {title,imageurl} = target.dataset;
       return {

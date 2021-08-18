@@ -3,7 +3,10 @@
   <view class="header">
     <image src="/static/images/video/video.jpg"></image>
     <input type="text" placeholder="光辉岁月" placeholder-class="placeholder"></input>
-    <image src="/static/images/logo.png"></image>
+    <image 
+    src="/static/images/logo.png"
+    bindtap="testAPI"
+    ></image>
   </view>
 
   <!-- 导航栏区域 -->
@@ -22,12 +25,23 @@
   </scroll-view>
 
   <!-- videoList区域 -->
-  <scroll-view class="videoList" scroll-y>
+  <scroll-view 
+  class="videoList" 
+  bindrefresherrefresh="handlePullDown"
+  bindscrolltolower="handleScrollToLower"
+  refresher-enabled
+  refresher-triggered="{{trigger}}"
+  scroll-y>
     <view class="videoItem"
     wx:for="{{videoList}}"
     wx:key="vid"
     >
-      <video class="common" src="{{item.urlInfo.url}}"></video>
+      <video 
+      id="{{item.vid}}"
+      class="common" 
+      src="{{item.urlInfo.url}}"
+      bindplay="handlePlay"
+      ></video>
       <view class="content">{{item.title}}</view>
       <view class="footer">
         <image class="avatar" src="{{item.creator.avatarUrl}}"></image>
