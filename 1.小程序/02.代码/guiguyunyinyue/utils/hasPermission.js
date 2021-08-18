@@ -12,15 +12,16 @@ export default function(){
           wx.navigateTo({
             url: "/pages/login/login"
           })
-          return true;
         } else {
           wx.switchTab({
             url: "/pages/index/index"
           })
-          return false;
         }
 
       }
     })
+    return false;
+  }else{
+    return true;
   }
 }
