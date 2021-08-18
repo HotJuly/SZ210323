@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            async函数的返回值是一个全新的promise对象(状态受到内部代码影响)
+                想要让promise对象变成成功状态:
+                    1.当前async函数内部代码执行结束
+                    2.当前async函数返回一个成功的promise对象
+                想要让promise对象变成失败状态:
+                    1.当前async函数内部代码执行结束
+                    2.当前async函数返回一个失败的promise对象
+            async和await的作用返回只在当前函数内部生效
+
+            async函数中,await之后的代码都会被放在then函数中
+        
+        */
+        // var p1;
+        var p;
+        async function a(){
+            console.log('1')
+            var p1 =await new Promise((resolve, reject) => {
+                console.log('2')
+                setTimeout(() => {
+                    console.log('3')
+                    resolve()
+                })
+                console.log('4')
+            })
+
+            p=Promise.resolve()
+            return p;
+            // console.log('6')
+            // // p1.then(()=>{
+            // //     console.log('6')
+            // // })
+            // // return 123;
+            // console.log(c)
+        }
+        var b=a();
+        console.log('5')
+        console.log('a',b===p)
+    </script>
+</body>
+
+</html>
