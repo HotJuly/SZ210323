@@ -11,7 +11,7 @@
         // js中的6个false值:false,0,NaN,"",undefined,null
 
         //基本数据类型VS基本数据类型
-        // toNumber
+        // toNumber Number()
         // console.log("1",true==1);    //true     //1===1
         // console.log("2",true=="1");  //true     //1===1
         // console.log("3","2"==1);     //false    //2===1
@@ -29,13 +29,17 @@
         // console.log("13",{}!=={});   //true
 
         // 对象数据类型VS基本数据类型
-        // valueOf方法->toString
+        // valueOf方法->toString()
         // console.log("12",[]==![]);   //true     []==false =>    ""==false => 0===0
         // console.log("14",{}==!{});   //false    {}==false =>    "[object Object]"==false => NaN===0
 
         // console.log("15",0=="0") //true     =>  0===0
         // console.log("16",0==[])  //true     =>  0==""   =>  0===0
         // console.log("17","0"==[])    //false    =>  "0"=="" =>"0"===""
+
+        console.log(1 == new Number(1),new Number(1).valueOf())
+
+
 
 
     </script>
