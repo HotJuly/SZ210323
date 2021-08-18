@@ -8,7 +8,8 @@ Page({
   data: {
     // 用于导航列表显示
     navList:[],
-    currentId:null
+    currentId:null,
+    videoList:[]
   },
 
   // 用于监视用户点击导航栏操作,并动态切换导航栏下划线展示
@@ -42,11 +43,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow:async function () {
+    // 用于请求导航列表数据
     let navListData = await req('/video/group/list');
     this.setData({
       navList: navListData.data.slice(0,13),
       currentId: navListData.data[0].id
+    });
+
+    //用于请求视频列表数据
+    let videoListData = await req('/video/group',{id:this.data.currentId});
+    let videoList = videoListData.datas.map((item)=>{
+      return item.data;
     })
+    this.setData({
+      videoList
+    })
+    // console.log('videoList', videoList)
   },
 
   /**

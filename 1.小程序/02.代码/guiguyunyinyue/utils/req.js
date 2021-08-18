@@ -21,8 +21,21 @@ export default function (url, data={}, method="GET") {
       url: config.mpHost + url,
       data,
       method,
+      header:{
+        cookie:wx.getStorageSync('cookie')
+      },
       success: (res) => {
         // console.log('res', res)
+        // 不是每个cookie都要保存,我们只需要登录接口返回的cookie
+        // if (url ==="/login/cellphone"){}
+        if (data._Login) {
+          wx.setStorage({
+            key: 'cookie',
+            data: res.cookies.find((cookie) => {
+              return cookie.startsWith('MUSIC_U');
+            })
+          })
+        }
         // result = res;
 
         // 此操作等同于axios中响应拦截器的return response.data

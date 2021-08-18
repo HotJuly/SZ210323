@@ -81,7 +81,8 @@ Page({
      */
     let result = await req('/login/cellphone',{
       phone,
-      password
+      password,
+      _Login:true
     });
 
     console.log('result',result)
