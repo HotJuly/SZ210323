@@ -1,8 +1,8 @@
-
 // 错误示范
 // import PubSub from '../../node_modules/pubsub-js';
 
 import PubSub from 'pubsub-js';
+import moment from 'moment';
 
 import req from '../../utils/req.js';
 
@@ -19,7 +19,10 @@ Page({
     songObj:{},
     isPlay:false,
     songId:null,
-    musicUrl:null
+    musicUrl:null,
+    currentTime:"00:00",
+    durationTime:"--:--",
+    currentWidth:0
   },
 
   // 用于请求当前歌曲最新链接信息
@@ -37,7 +40,8 @@ Page({
     let songData = await req('/song/detail', { ids: this.data.songId });
 
     this.setData({
-      songObj: songData.songs[0]
+      songObj: songData.songs[0],
+      durationTime: moment(songData.songs[0].dt).format("mm:ss")
     })
 
     wx.setNavigationBarTitle({ title: this.data.songObj.name });
@@ -47,25 +51,7 @@ Page({
   switchType(event){
     const {id} = event.currentTarget;
 
-    PubSub.subscribe('sendId',async (msg,songId)=>{
-      // console.log('sendId',songId)
-      this.setData({
-        songId
-      })
-
-      this.getMusicDetail();
-      await this.getMusicUrl();
-
-
-      // 注意:背景音频想要播放歌曲,必须要传入两个属性src和title
-      this.backgroundAudioManager.src = this.data.musicUrl;
-      this.backgroundAudioManager.title = this.data.songObj.name;
-
-
-      // 缓存当前歌曲的id和播放状态
-      appInstance.globalData.audioId = this.data.songId;
-      appInstance.globalData.playState = true;
-    })
+    
     // console.log('switchType123')
     PubSub.publish('switchType', id);
   },
@@ -76,10 +62,14 @@ Page({
 
     // 监视背景音频进入播放状态
     this.backgroundAudioManager.onPlay(()=>{
-      // 更新当前页面C3效果
-      this.setData({
-        isPlay:true
-      })
+      // 如果当前页面歌曲和背景音频是同一首歌曲,才更新页面效果
+
+      if (appInstance.globalData.audioId === this.data.songId) {
+        // 更新当前页面C3效果
+        this.setData({
+          isPlay: true
+        })
+      }
 
       // 缓存当前歌曲的id和播放状态,保证下次进入当前页面C3效果正确
       appInstance.globalData.playState = true;
@@ -93,6 +83,20 @@ Page({
 
       // 缓存当前歌曲的id和播放状态,保证下次进入当前页面C3效果正确
       appInstance.globalData.playState = false;
+    })
+
+    // 监视背景音频进度更新状态
+    this.backgroundAudioManager.onTimeUpdate(() => {
+      // console.log('onTimeUpdate', this.backgroundAudioManager.currentTime)
+      this.setData({
+        currentTime: moment(this.backgroundAudioManager.currentTime*1000).format("mm:ss"),
+        currentWidth: this.backgroundAudioManager.currentTime / this.backgroundAudioManager.duration*100
+      })
+    })
+
+    // 监视背景音频自然播放结束状态
+    this.backgroundAudioManager.onEnded(() => {
+      PubSub.publish('switchType', "next");
     })
   },
 
@@ -124,12 +128,18 @@ Page({
       // 2.通过背景音频管理器实例控制音频播放
       // 出现问题:当前歌曲详细信息songObj身上没有音频链接,需要重新请求
 
-      await this.getMusicUrl();
+      // 如果已经请求过了,也就是说data中已经有musicUrl属性值,就不需要再次请求了
+      if (!this.data.musicUrl) {
+        await this.getMusicUrl();
+      }
       // console.log('url', url)
 
       // 注意:背景音频想要播放歌曲,必须要传入两个属性src和title
       this.backgroundAudioManager.src = this.data.musicUrl;
       this.backgroundAudioManager.title = this.data.songObj.name;
+
+      // 本段代码仅供测试自动切歌功能使用
+      // this.backgroundAudioManager.startTime = 250;
 
 
       // 缓存当前歌曲的id和播放状态
@@ -174,7 +184,26 @@ Page({
     // 在此处绑定背景音频相关的事件监听
     this.addEvent();
 
-    console.log('PubSub', PubSub)
+    // console.log('PubSub', PubSub)
+    this.pubsubToken = PubSub.subscribe('sendId', async (msg, songId) => {
+      console.log('sendId')
+      this.setData({
+        songId
+      })
+
+      this.getMusicDetail();
+      await this.getMusicUrl();
+
+
+      // 注意:背景音频想要播放歌曲,必须要传入两个属性src和title
+      this.backgroundAudioManager.src = this.data.musicUrl;
+      this.backgroundAudioManager.title = this.data.songObj.name;
+
+
+      // 缓存当前歌曲的id和播放状态
+      appInstance.globalData.audioId = this.data.songId;
+      appInstance.globalData.playState = true;
+    })
 
     // 此处正在测试appInstance实例传递数据
     // console.log('appInstance1', appInstance.globalData.msg)
@@ -207,7 +236,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    PubSub.unsubscribe(this.pubsubToken);
   },
 
   /**
