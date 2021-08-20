@@ -1,0 +1,14 @@
+UNIAPP						小程序
+manifest.json(当前项目的说明书,以及脚手架配置文件)		project.config.json
+注意:需要将小程序的appid填入,勾选ES6转ES5
+
+pages.json(pages对应pages,globalStyle对应window)		app.json+所有页面json(全局配置+页面配置)
+
+main.js+App.vue(以后如果写全局样式,就找App.vue)		app.js+app.wxss
+
+unpackage(该文件夹是用于存放编译成小程序的代码,禁止修改内部内容,每次修改uniapp代码,该文件夹都会重新打包)
+
+pages文件夹与小程序相同,用于存放页面
+
+index.vue						index.js+index.wxss+index.wxml
+

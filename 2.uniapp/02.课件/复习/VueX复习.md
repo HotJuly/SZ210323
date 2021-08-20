@@ -1,0 +1,44 @@
+# VueX复习
+
+1. VueX的理解
+   1. 他是Vue专用的插件库(判断是否是插件库的依据,就是通过是否需要用到Vue.use语法)
+   2. Vuex是一个用于集中管理多组件之间共享状态的js库
+2. VueX中的核心概念
+   1. store对象
+      1. 用处:用于管理state,mutation,action,getter,并且会向外暴露操作的API
+   2. state
+      1. 用处:用于存储多组件之间的共享状态
+   3. mutation
+      1. 用处:用于直接更新state数据
+      2. 数据类型:函数
+      3. 面试题:mutation为什么必须要写成同步函数
+         1. 官方语法规范
+         2. Vue Devtool只会记录只发过的mutation,导致无法正常追踪state和mutation之间的关系,调试工具失效
+      4. 面试题:mutation的名称为什么要定义为常量
+         1. 官方语法规范
+         2. 可以提高开发效率,减少不必要错误,有利于多人协同开发
+   4. action
+      1. 用处:用于间接更新state数据
+      2. 数据类型:函数
+   5. getter
+      1. 用处:相当于Vue组件中的computed,他会监视Vuex中的state,去计算出一个新的值
+      2. 数据类型:函数
+      3. 面试题:请说说你对computed和watch的理解
+         1. 共同点
+            1. 都会监视data或者props中的数据
+            2. 当监视的响应式数据发生变化,他们都会执行对应的函数
+         2. 不同点
+            1. 使用场景:
+               1. 总结:computed更注重结果,watch更注重过程
+               2. 当你需要一个数据,你手头并没有这个数据,但是你可以通过已有的data或者props进行计算得到,就选择使用computed
+                  1. 场景举例:在购物车的总价功能或者商品总数功能都会使用到
+               3. 当某个数据发生变化的时候,你需要做一件或者多件事情,就选择使用watch
+                  1. 场景举例:在路由参数发生变化,路由路径没发生变化的时候,会监视$route.query的数据
+            2. 性能:
+               1. computed底层原理也是watch
+               2. computed具有缓存机制,如果computed依赖的数据没有发生变化,那么computed不会重新计算
+               3. 总结:computed性能优于watch
+   6. dispatch
+      1. 用处:专门用于触发action的函数
+   7. commit
+      1. 用处:专门用于触发mutation的函数

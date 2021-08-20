@@ -1,0 +1,4 @@
+一共有三种解决方案
+1.使用HBuilderX内置浏览器(该浏览器不会报跨域错误)
+2.在vue.config.js中配置代理规则(详情参考vue-cli官网)
+3.在manifest.json文件中配置h5->devServer(详情参考webpack官网)
