@@ -12,6 +12,15 @@ Page({
     recommendList:[]
   },
 
+  // 用于监视用户点击推荐列表中的歌曲,跳转至歌曲页面
+  toSong(event){
+    // console.log('toSong',event.currentTarget.dataset.song)
+    let songId = event.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/song/song?songId='+songId
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
