@@ -4,7 +4,7 @@
 import PubSub from 'pubsub-js';
 import moment from 'moment';
 
-import req from '../../utils/req.js';
+import req from '../../../utils/req.js';
 
 
 // 获取全局唯一的小程序实例对象

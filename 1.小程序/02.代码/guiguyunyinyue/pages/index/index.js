@@ -16,7 +16,7 @@ Page({
   // 用于监视用户点击每日推荐按钮操作
   toRecommendSong(){
     wx.navigateTo({
-      url: '/pages/recommendSong/recommendSong',
+      url: '/songs/pages/recommendSong/recommendSong',
     })
   },
 
