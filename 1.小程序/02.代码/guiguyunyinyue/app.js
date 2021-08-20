@@ -27,5 +27,10 @@ App({
    */
   onError: function (msg) {
     
+  },
+  globalData:{
+    msg: "我是appInstance初始化的数据",
+    playState:false,
+    audioId:null
   }
 })

@@ -1,5 +1,8 @@
 // pages/song/song.js
 import req from '../../utils/req.js';
+
+// 获取全局唯一的小程序实例对象
+const appInstance = getApp();
 Page({
 
   /**
@@ -11,6 +14,32 @@ Page({
     isPlay:false,
     songId:null,
     musicUrl:null
+  },
+
+  // 用于监视背景音频相关操作
+  addEvent(){
+    const backgroundAudioManager = wx.getBackgroundAudioManager();
+
+    // 监视背景音频进入播放状态
+    backgroundAudioManager.onPlay(()=>{
+      // 更新当前页面C3效果
+      this.setData({
+        isPlay:true
+      })
+
+      // 缓存当前歌曲的id和播放状态,保证下次进入当前页面C3效果正确
+      appInstance.globalData.playState = true;
+    })
+
+    // 监视背景音频进入暂停状态
+    backgroundAudioManager.onPause(() => {
+      this.setData({
+        isPlay: false
+      })
+
+      // 缓存当前歌曲的id和播放状态,保证下次进入当前页面C3效果正确
+      appInstance.globalData.playState = false;
+    })
   },
 
   // 用于监视用户点击播放按钮操作,控制当前页面C3效果播放状态
@@ -26,6 +55,10 @@ Page({
     if(this.data.isPlay){
       // 说明当前音频正处于播放状态
       backgroundAudioManager.pause();
+
+      // 缓存当前歌曲的id和播放状态
+      // 注意：此处不需要再次缓存当前背景音频id，因为想要进入暂停逻辑，说明之前进入过播放逻辑
+      appInstance.globalData.playState = false;
     }else{
 
       // 自动播放背景音频
@@ -49,6 +82,10 @@ Page({
       this.setData({
         musicUrl: url
       })
+
+      // 缓存当前歌曲的id和播放状态
+      appInstance.globalData.audioId = this.data.songId;
+      appInstance.globalData.playState = true;
     }
 
     this.setData({
@@ -77,7 +114,23 @@ Page({
       songId
     })
 
-    wx.setNavigationBarTitle({ title: this.data.songObj.name})
+    wx.setNavigationBarTitle({ title: this.data.songObj.name});
+
+    // 如果当前正在播放的歌曲和当前页面是同一首歌,页面C3自动进入播放状态
+    if (appInstance.globalData.playState && appInstance.globalData.audioId===songId){
+      // 页面C3自动进入播放状态
+      this.setData({
+        isPlay:true
+      })
+    }
+
+    // 在此处绑定背景音频相关的事件监听
+    this.addEvent();
+
+    // 此处正在测试appInstance实例传递数据
+    // console.log('appInstance1', appInstance.globalData.msg)
+    // appInstance.globalData.msg="我是修改之后的数据"
+    // console.log('appInstance2', appInstance.globalData.msg)
   },
 
   /**
