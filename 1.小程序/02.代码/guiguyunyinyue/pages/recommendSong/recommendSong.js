@@ -1,4 +1,6 @@
 // pages/recomendSong/recommendSong.js
+import PubSub from 'pubsub-js';
+
 import hasPermission from '../../utils/hasPermission.js';
 import req from '../../utils/req.js';
 Page({
@@ -9,13 +11,19 @@ Page({
   data: {
     month:"--",
     day:"--",
-    recommendList:[]
+    recommendList:[],
+    currentIndex:null
   },
 
   // 用于监视用户点击推荐列表中的歌曲,跳转至歌曲页面
   toSong(event){
     // console.log('toSong',event.currentTarget.dataset.song)
-    let songId = event.currentTarget.dataset.id;
+    let { id: songId,index} = event.currentTarget.dataset;
+
+    this.setData({
+      currentIndex:index
+    })
+
     wx.navigateTo({
       url: '/pages/song/song?songId='+songId
     })
@@ -42,6 +50,40 @@ Page({
     this.setData({
       recommendList: result.recommend
     })
+
+    // 订阅switchType,用于接收song页面发来的数据(用户点击的是上一首还是下一首)
+    // 注意:PubSub的回调函数的形参,第一个是消息名称,第二个才是真正传递的数据
+    PubSub.subscribe('switchType', (msg,data)=>{
+      console.log('switchType', msg, data)
+      /*
+        当前通过data中的currentIndex属性,可以知道当前是哪一首歌
+          如果需要上一首歌曲数据,就将currentIndex-1,并对recommendList进行读取即可
+          如果需要下一首歌曲数据,就将currentIndex+1,并对recommendList进行读取即可
+      
+       */
+      let {currentIndex,recommendList} =this.data;
+      if(data==="next"){
+        if(currentIndex===recommendList.length-1){
+          currentIndex=0;
+        }else{
+          currentIndex += 1;
+        }
+      } else {
+        if (currentIndex === 0) {
+          currentIndex = recommendList.length - 1;
+        } else {
+          currentIndex -= 1;
+        }
+      }
+
+      this.setData({
+        currentIndex
+      })
+
+      const newSongId = recommendList[currentIndex].id;
+
+      PubSub.publish('sendId',newSongId);
+    });
   },
 
   /**
