@@ -1,6 +1,11 @@
 // pages/song/song.js
 import req from '../../utils/req.js';
 
+// 错误示范
+// import PubSub from '../../node_modules/pubsub-js';
+
+import PubSub from 'pubsub-js';
+
 // 获取全局唯一的小程序实例对象
 const appInstance = getApp();
 Page({
@@ -126,6 +131,8 @@ Page({
 
     // 在此处绑定背景音频相关的事件监听
     this.addEvent();
+
+    console.log('PubSub', PubSub)
 
     // 此处正在测试appInstance实例传递数据
     // console.log('appInstance1', appInstance.globalData.msg)
