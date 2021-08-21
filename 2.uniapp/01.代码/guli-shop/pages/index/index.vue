@@ -13,7 +13,7 @@
 			<button class="username">七月</button>
 		</view>
 		
-		<scroll-view class="navScroll" scroll-x="true" enable-flex="true">
+		<scroll-view class="navScroll" scroll-x="true" enable-flex="true" v-if="indexData.kingKongModule">
 			<view class="navItem active">
 				推荐
 			</view>
@@ -45,8 +45,8 @@
 		},
 		mounted(){
 			// console.log('mounted')
-			 wx.request({
-				 url:"http://localhost:3001/getIndexData",
+			 uni.request({
+				 url:"/api/getIndexData",
 				 success:(res)=>{
 					// console.log('res',res)
 					// this.setData({
