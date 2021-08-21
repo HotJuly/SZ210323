@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "guli-shop",
+    "navigationBarBackgroundColor": "#BB2C08"
+  },
+  "usingComponents": {}
+}
