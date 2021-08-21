@@ -153,8 +153,42 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
-{};exports.default = _default;
+{
+  // uniapp还兼容小程序的生命周期以及Vue的生命周期
+  // 选择使用,看个人意愿
+  // onLoad(){
+  // 	console.log('onLoad')
+  // },
+  data: function data() {
+    return {
+      indexData: {} };
+
+  },
+  mounted: function mounted() {var _this = this;
+    // console.log('mounted')
+    wx.request({
+      url: "http://localhost:3001/getIndexData",
+      success: function success(res) {
+        // console.log('res',res)
+        // this.setData({
+        // 	indexData:res.data
+        // })
+        _this.indexData = res.data;
+      } });
+
+  } };exports.default = _default;
 
 /***/ }),
 /* 21 */
