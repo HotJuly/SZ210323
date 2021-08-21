@@ -32,6 +32,7 @@
 </template>
 
 <script>
+	import req from '../../utils/req.js';
 	export default {
 		// uniapp还兼容小程序的生命周期以及Vue的生命周期
 		// 选择使用,看个人意愿
@@ -43,18 +44,21 @@
 				indexData:{}
 			}
 		},
-		mounted(){
+		async mounted(){
 			// console.log('mounted')
-			 uni.request({
-				 url:"/api/getIndexData",
-				 success:(res)=>{
-					// console.log('res',res)
-					// this.setData({
-					// 	indexData:res.data
-					// })
-					this.indexData=res.data;
-				 }
-			 })
+			 // uni.request({
+				//  url:"/api/getIndexData",
+				//  success:(res)=>{
+				// 	// console.log('res',res)
+				// 	// this.setData({
+				// 	// 	indexData:res.data
+				// 	// })
+				// 	this.indexData=res.data;
+				//  }
+			 // })
+			 let result =await req("/getIndexData");
+			 // console.log(result)
+			 this.indexData = result;
 		}
 	}
 </script>
