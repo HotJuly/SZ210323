@@ -13,6 +13,9 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function 
 
 _vue.default.config.productionTip = false;
 
+// mp->mini program
+//	type->类型
+// 说明,当前App组件代表整个小程序
 _App.default.mpType = 'app';
 
 var app = new _vue.default(_objectSpread({},
