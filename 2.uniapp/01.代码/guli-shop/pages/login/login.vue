@@ -26,7 +26,7 @@
 				uni.getUserProfile({
 					desc:"用于测试项目",
 					success:(detail)=>{
-						// console.log('detail',detail);
+						console.log('detail',detail);
 						// 保存用户信息,并跳转回个人中心页面
 						uni.setStorage({
 							key:"userInfo",

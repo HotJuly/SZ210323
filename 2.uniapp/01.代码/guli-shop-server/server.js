@@ -1,5 +1,7 @@
 const Koa = require('koa');
 const KoaRouter = require('koa-router');
+const Fly = require('flyio/src/node');
+const fly = new Fly;
 
 /*
 	1.获取app,创建服务器应用实例
@@ -94,6 +96,22 @@ const KoaRouter = require('koa-router');
 		})
 		
 		ctx.body=good
+	})
+	
+	
+	
+	// 当前路由,用于获取用户的唯一标识openId
+	router.get('/getOpenId',async function(ctx,next){
+		// console.log('code',ctx.query.code)
+		// ctx.body=categoryDatas
+		const code = ctx.query.code;
+		const appId = 'wxe5931a68ea66cece';
+		const appSecret = 'b112190aca9e62efee53279fc27b9078';
+		const url=`https://api.weixin.qq.com/sns/jscode2session?appid=${appId}&secret=${appSecret}&js_code=${code}&grant_type=authorization_code`
+		let result = await fly.get(url);
+		console.log(result)
+		let {openid} = JSON.parse(result.data);
+		ctx.body=openid;
 	})
 	
 //	2.将服务器应用实例运行在电脑的某个端口上,并监听该端口
