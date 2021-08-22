@@ -14,12 +14,25 @@
 		</view>
 		
 		<scroll-view class="navScroll" scroll-x="true" enable-flex="true" v-if="indexData.kingKongModule">
-			<view class="navItem active">
+			<view 
+			class="navItem" 
+			:class="navIndex===-1?'active':''"
+			@click="changeNavIndex(-1)"
+			>
 				推荐
 			</view>
-			<view class="navItem" v-for="kingKong in indexData.kingKongModule.kingKongList" :key="kingKong.L1Id">
+			<view class="navItem" 
+			:class="navIndex===index?'active':''" 
+			@click="changeNavIndex(index)"
+			v-for="(kingKong,index) in indexData.kingKongModule.kingKongList" 
+			:key="kingKong.L1Id">
 				{{kingKong.text}}
 			</view>
+		</scroll-view>
+		
+		<scroll-view scroll-y="true" class="contentScroll">
+			<Recommend :indexData="indexData" v-if="navIndex===-1"/>
+			<CateList v-else/>
 		</scroll-view>
 	</view>
 	<!-- swiper
@@ -32,8 +45,10 @@
 </template>
 
 <script>
-	import req from '../../utils/req.js';
 	import {mapState} from 'vuex';
+	import Recommend from '../../components/Recommend/Recommend.vue';
+	import CateList from '../../components/CateList/CateList.vue';
+	import req from '../../utils/req.js';
 	export default {
 		// uniapp还兼容小程序的生命周期以及Vue的生命周期
 		// 选择使用,看个人意愿
@@ -42,7 +57,8 @@
 		// },
 		data(){
 			return{
-				// indexData:{}
+				// indexData:{},
+				navIndex:-1
 			}
 		},
 		async mounted(){
@@ -70,6 +86,15 @@
 			...mapState({
 				indexData:(state)=>state.home.indexData
 			})
+		},
+		methods:{
+			changeNavIndex(index){
+				this.navIndex = index;
+			}
+		},
+		components:{
+			Recommend,
+			CateList
 		}
 	}
 </script>
@@ -122,5 +147,20 @@
 				line-height 80upx
 				&.active
 					border-bottom 4upx solid red
+		.contentScroll
+			// 小程序计算height = 屏幕100%高度 - header高度 - nav高度
+			// H5计算height = 屏幕100%高度 - header高度 - nav高度 - 导航栏高度 - tabBar高度
+			// 当前样式需要根据运行环境来实现不同的计算
+			// 解决方案一:通过条件编译ifdef实现不同环境执行不同代码
+			// 解决方案二:使用级联变量(俗称CSS变量,该功能必须支持C3的浏览器才能使用)
+			/* #ifdef H5 */
+			height calc(100vh - 80upx - 84upx - 88upx)
+			/* #endif */
+			
+			/* #ifdef MP-WEIXIN */
+			height calc(100vh - 80upx - 84upx)
+			/* #endif */
+			
+			height calc(100vh - 80upx - 84upx - var(--window-top) - var(--window-bottom))
 					
 </style>

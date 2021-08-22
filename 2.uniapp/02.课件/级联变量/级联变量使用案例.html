@@ -12,7 +12,7 @@
             padding: 0;
         }
         :root{
-            --color:blue;
+            --window-color:blue;
         }
 
         div{
@@ -20,10 +20,11 @@
             height:200px;
         }
         .box1 {
-            background: var(--color);
+            background:var(--window-color);
         }
         .box2{
-            color:var(--color);
+            color:var(--window-color);
+            border:1px solid blue;
         }
     </style>
 
@@ -38,17 +39,10 @@
     </div>
     <button id="btn1">变绿</button>
     <script>
-        btn1.onclick=function(){
-            //找到html标签
+        btn1.onclick=function(){ 
             var htmlNode=document.documentElement;
             //将html标签(根标签)的CSS变量(--global-color)的值修改为red
-            htmlNode.style.setProperty("--color", "green");
-
-            
-            //读取html标签(根标签)的CSS变量(--global-color)的值,并在控制台中打印
-            var value=htmlNode.style.getPropertyValue('--color');
-            // var value=getComputedStyle(htmlNode)['--color'];
-            console.log(value) 
+            htmlNode.style.setProperty("--window-color", "green");
         }
     </script>
 </body>
