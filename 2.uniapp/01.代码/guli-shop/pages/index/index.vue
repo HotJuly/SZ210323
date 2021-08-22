@@ -33,6 +33,7 @@
 
 <script>
 	import req from '../../utils/req.js';
+	import {mapState} from 'vuex';
 	export default {
 		// uniapp还兼容小程序的生命周期以及Vue的生命周期
 		// 选择使用,看个人意愿
@@ -41,7 +42,7 @@
 		// },
 		data(){
 			return{
-				indexData:{}
+				// indexData:{}
 			}
 		},
 		async mounted(){
@@ -56,9 +57,19 @@
 				// 	this.indexData=res.data;
 				//  }
 			 // })
-			 let result =await req("/getIndexData");
-			 // console.log(result)
-			 this.indexData = result;
+			 // let result =await req("/getIndexData");
+			 // // console.log(result)
+			 // this.indexData = result;
+			 // console.log('initData',this.initData)
+			 this.$store.dispatch('getIndexData');
+		},
+		computed:{
+			initData(){
+				return this.$store.state.home.initData;
+			},
+			...mapState({
+				indexData:(state)=>state.home.indexData
+			})
 		}
 	}
 </script>
