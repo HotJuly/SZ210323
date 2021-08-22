@@ -56,6 +56,13 @@ const KoaRouter = require('koa-router');
 		ctx.body=indexData
 	})
 	
+	// 当前路由,用于返回分类页面相关数据
+	const categoryDatas = require('./datas/categoryDatas.json');
+	router.get('/getCategoryDatas',function(ctx,next){
+		// console.log('/test success')
+		ctx.body=categoryDatas
+	})
+	
 //	2.将服务器应用实例运行在电脑的某个端口上,并监听该端口
 // 	node中一般都是错误优先机制
 	app.listen(3001,function(error){

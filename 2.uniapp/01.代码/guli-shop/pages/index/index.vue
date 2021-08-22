@@ -154,7 +154,7 @@
 			// 解决方案一:通过条件编译ifdef实现不同环境执行不同代码
 			// 解决方案二:使用级联变量(俗称CSS变量,该功能必须支持C3的浏览器才能使用)
 			/* #ifdef H5 */
-			height calc(100vh - 80upx - 84upx - 88upx)
+			height calc(100vh - 80upx - 84upx - 88upx - 100upx)
 			/* #endif */
 			
 			/* #ifdef MP-WEIXIN */
