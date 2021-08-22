@@ -1,0 +1,15 @@
+1.前端准备好重定向地址(后端用来接收数据的url,后端提供),appid
+
+2.通过window.location.href=微信官方API地址(https://open.weixin.qq.com/auth2),
+	并将准备好的重定向地址还有appid,传递给微信官方
+
+3.微信官方会调起手机本地的微信,获取用户信息之后,会自动重定向当前网页地址到1中提供的重定向地址
+	并同时将用户的临时凭证code传递给公司服务器
+
+4.公司服务器接收到用户临时凭证code,发送请求将code兑换成token
+
+5.公司服务器将token发送请求兑换成用户详细信息
+
+6.公司服务器返回我们的Vue前端项目的html(或者直接重定向到首页地址)
+
+参考网址:https://blog.csdn.net/z9061/article/details/105988489

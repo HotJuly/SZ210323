@@ -32,7 +32,7 @@
 		
 		<scroll-view scroll-y="true" class="contentScroll">
 			<Recommend :indexData="indexData" v-if="navIndex===-1"/>
-			<CateList v-else/>
+			<CateList :navIndex="navIndex" v-else/>
 		</scroll-view>
 	</view>
 	<!-- swiper

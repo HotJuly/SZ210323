@@ -63,6 +63,39 @@ const KoaRouter = require('koa-router');
 		ctx.body=categoryDatas
 	})
 	
+	// 当前路由,用于返回首页CateList组件相关数据
+	const indexCateList = require('./datas/indexCateList.json');
+	router.get('/getIndexCateList',async function(ctx,next){
+		// console.log('/test success')
+		await new Promise((resolve)=>{
+			setTimeout(resolve,2000)
+		})
+		
+		ctx.body=indexCateList
+		
+		// setTimeout(()=>{
+		// ctx.body=indexCateList
+		// },2000)
+	})
+	
+	// 当前路由,用于返回商品的详细信息
+	const goods = require('./datas/goods.json');
+	router.get('/getGoodDetail',function(ctx,next){
+		// console.log('/test success')
+		// console.log('query',ctx.query.goodId);
+		// 获取到前端传递过来的商品id
+		const goodId = ctx.query.goodId;
+		console.log('query',ctx.query.goodId);
+		
+		let good = goods.find((good)=>{
+			// return good.id === goodId*1;
+			// >>>X   先将数据转成二进制,再向右平移X位
+			return good.id === goodId>>>0;
+		})
+		
+		ctx.body=good
+	})
+	
 //	2.将服务器应用实例运行在电脑的某个端口上,并监听该端口
 // 	node中一般都是错误优先机制
 	app.listen(3001,function(error){
