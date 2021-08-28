@@ -1,0 +1,14 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "username": "xiaoming",
+      "password": "xiaoming666"
+    },
+    {
+      "id": 2,
+      "username": "xiaohong",
+      "password": "xiaohong666"
+    }
+  ]
+}
