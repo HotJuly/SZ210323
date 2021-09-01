@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            常见this指向
+                1.普通调用  A()     ->this指向window
+                2.构造调用  new A() ->this指向当前函数创建的实例对象
+                3.隐式调用  obj.A() ->this指向前面的实例对象
+                4.显式调用  A.call(obj) ->this指向call中的第一个实参
+
+                5.箭头函数  ->  this指向外层作用域的this
+                6.事件回调函数  ->  this指向事件源
+                7.定时器的回调函数    ->  this指向window
+                8.Vue组件中method函数   ->  this指向vue组件实例对象
+                9.React组件中的方法 ->  如果不使用箭头函数,this是undefined,如果使用箭头函数,this就是React组件实例对象
+        */
+    //    function A(a,b,c){
+    //        console.log(this)
+    //    }
+    //    window.A();
+    //    A();
+
+
+    //    var obj = {
+    //        A:A
+    //    }
+    //    obj.A();
+
+    //    new A();
+
+    //    obj.A.call();
+
+       /*
+        面试题1:call和apply的区别
+            相同点:
+                1.改变当前借调函数的this指向(仅当前本次)
+                2.都会同步调用借调函数
+                3.第一个参数都是用于修改当前本次执行的this,如果传入null或者undefined,就会指向window
+            不同点:
+                传递参数方式不同
+                A.call(obj,a,b,c)->传入实参以逗号隔开,数量从0-无限大
+                A.apply(obj,[a,b,c])->传入实参用数组存储,数量从0-2
+       */
+
+    //    var obj = {
+    //        length:8,
+    //        foo:function(){
+    //            return this.length;
+    //        }
+    //    }
+    //    var length = 9;
+    //    (function(bar){
+    //     var length=5;
+
+    //     // arguments.0()
+    //     // 数组也是对象
+    //     console.log(arguments[0]());
+    //    })(obj.foo);
+
+
+    //    function a(){
+    //        console.log(this)
+    //    }
+    //    var arr = [a];
+    // //    arr.0();
+    //    arr[0]();
+
+    // 手写实现call方法
+    function B(a,b,c){
+        console.log('B',this,a,b,c)
+    }
+
+    //允许使用ES6语法
+    // Function.prototype.myCall =function(thatThis,...args){
+    //     // thatThis.a();
+    //     // this->B函数
+    //     if(thatThis===null||thatThis===undefined){
+    //         thatThis = window;
+    //     }
+    //     console.log('args',args)
+    //     thatThis._B = this;
+    //     var result = thatThis._B(...args);
+    //     delete thatThis._B;
+        // return result;
+    // }
+
+    // 不允许使用es6版本
+    Function.prototype.myCall =function(thatThis){
+        // thatThis.a();
+        // this->B函数
+        var args= [];
+        for(var i= 1;i<arguments.length;i++){
+            args.push(arguments[i])
+        }
+        if(thatThis===null||thatThis===undefined){
+            thatThis = window;
+        }
+        thatThis._B = this;
+        // thatThis._B(args.toString());
+        // thatThis._B(1,2,3);
+        var result = eval("thatThis._B("+args.toString()+")");
+        delete thatThis._B;
+        return result;
+    }
+
+    var obj = {
+        name:"xiaoming"
+    }
+    B.myCall(obj,1,2,3);
+
+    /*
+        面试题:bind和call的区别
+            相同点:
+                1.第一个参数都是想要指定的this指向
+                2.接收的实参数量是0-无限大
+            不同点:
+                1.call方法会同步调用借调函数,但是bind方法会返回一个全新的函数,并且修改内部的this
+                2.bind由于返回的是一个函数,所以如果想要传入多个实参,可以分批传入
+                注意:bind方法是生成全新的函数并永久修改该函数的this,call并没有生成全新函数
+    */
+
+    
+    // B.myCall(obj,1,2);
+    // var b1 = B.bind(obj,1,2,3)();
+    // var b1 = B.bind(obj,1)(2,3);
+    // console.log(b1)
+
+    Function.prototype.myBind = function(thatThis,...args){
+        if(thatThis===null||thatThis===undefined){
+            thatThis = window;
+        }
+        // myBind的this是前面的B函数
+        var that = this;
+        return function(...args1){
+            that.apply(thatThis,[...args,...args1]);
+        }
+    }
+    var b1 = B.myBind(obj)(1,2,3);
+
+    /*
+        面试题:可不可以使用bind改变箭头函数的this
+        回答:不可以
+            箭头函数本身就没有this,他是使用的外层作用域的this
+        
+        面试题:箭头函数能不能构造调用
+        回答:不能
+        为什么?
+            箭头函数本身就没有this,他是使用的外层作用域的this,所以他无法产生自己的实例对象
+            箭头函数没有原型对象,因为他不可能有实例对象
+            箭头函数没有构造器
+
+    
+    */
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            作用域:就是变量的作用范围,某块范围只能,所有具有的变量
+            变量和函数名都可以成为标识
+            预解析:
+                1.变量提升  ->  只提升声明部分,赋值语句还会保留在原地
+                2.函数提升  ->  整体提升
+                3.函数表达式    ->  在js引擎眼里,他就是变量提升
+
+                注意:提升至当前作用域的最前面
+
+            作用域确认时间:函数声明的时候
+
+            扩展:在编程界,具有动态作用域和词法作用域(静态作用域),但是js中只有静态作用域
+        */
+
+        // function p1(){
+
+        // }
+        // var  p1;
+        // p1 = 123;
+        // var p1 = function(){
+
+        // }
+
+        
+        var  p1 = 123;
+        function p1(){
+            function b(){
+
+            }
+        }
+        // 函数表达式,函数表达式本质是变量声明,所以在预解析环节,函数表达式只会把变量声明提升
+        // var p1 = function(){
+            
+        // }
+
+        // var p1;
+        // p1 = 123;
+
+        // p1  = function(){
+            
+        // }
+
+    </script>
+</body>
+</html>

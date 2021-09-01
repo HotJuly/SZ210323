@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let obj = {
+        //     name:'xiaoming',
+        //     age:18
+        // }
+        // // let name = obj.name;
+        // let {name:name} =obj;
+
+        // let  arr = [1,2];
+        // // let {0:a,1:b} = arr;
+        // let [a,b] = arr;
+
+        // var obj = {
+        //     0:123,
+        //     1:234,
+        //     length:2
+        // }
+        // console.log(Array.prototype.slice.call(obj,0))
+        // console.log(Array.from(obj))
+        // console.log(Array.of(1, 2, 3))
+
+        // var arr = [1,2,23,[2,3,4,5,[6,7,8]]];
+        // console.log(arr.toString().split(','))
+        // console.log(arr.flat(20000000))
+        // console.log(Object.keys(obj))
+        // console.log(Object.values(obj))
+        // console.log(Object.entries(obj))
+        // console.log(NaN===NaN,Object.is(NaN,NaN))
+        // var obj1={
+        //     a(){
+
+        //     }
+        // }
+        var arr = [NaN,undefined,null];
+        console.log(arr.indexOf(NaN),arr.includes(NaN))
+
+        var obj = {
+            "0":123
+        }
+        Student.prototype = new Person();
+        // Student.prototype = {...new Person(),...obj};
+        Object.assign(Student.prototype,obj);
+
+        // import .. from ...;
+        // import().then()
+    </script>
+</body>
+</html>

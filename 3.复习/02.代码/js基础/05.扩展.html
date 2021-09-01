@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var fn = 123;
+        // var obj = {
+        //     fn:function fn(){
+        //         // 第一,这到底本身就是js漏洞
+        //         // 该fn,仅在当前函数内部可见
+        //         // 该fn的值不可修改
+        //         fn = 666;
+        //         console.log('666',fn)
+        //     }
+        // }
+        // obj.fn();
+        // console.log(111,fn);
+
+        (function a(){
+            console.log(1,a)
+            a=777;
+            console.log(3,a)
+        })()
+        console.log(2,a)
+    </script>
+</body>
+</html>

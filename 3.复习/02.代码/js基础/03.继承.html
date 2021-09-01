@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 
+            使用构造函数和ES6的类设计并测试以下需要
+            需求1: 
+                现在2个人, 都有姓名与年龄(值自己指定), 都能自我介绍自己的姓名和年龄, 能得到当前的总人数
+            需求2: 
+                现在有了一个学生, 它有身价的属性, 能介绍它的所有信息
+        */
+
+        function Person(name,age){
+            this.name = name;
+            this.age = age;
+            // this.sex = sex;
+            Person.prototype.count++;
+            // this.sayHello = function(){
+            //     console.log(`我叫${this.name},今年${this.age}岁`)
+            // }
+        }
+        Person.prototype.sayHello = function(){
+                console.log(`我叫${this.name},今年${this.age}岁`)
+        }
+
+        Person.prototype.count = 0;
+
+        var p1 = new Person("xiaoming",22);
+        var p2 = new Person("xiaohong",18);
+        // p1.sayHello();
+        // p2.sayHello();
+        // console.log(p1.sayHello===p2.sayHello)
+        // console.log(p1.count)
+
+        /*
+            组合继承:
+                1)获取到父类对应实例对象应该具有的所有属性
+                    Person.call(this,name,age);
+                    说明:此处的this是Student的实例对象,只是将s1交给Person,让他帮忙加工
+                2）获取到父类原型对象上所有的方法
+                    Student.prototype = new Person();
+                    Student.prototype.constructor = Student;
+        */
+        function Student(name,age,price){
+            Person.call(this,name,age);
+            this.price = price;
+        }
+
+        Student.prototype = new Person();
+        Student.prototype.constructor = Student;
+
+        // 重写:父类具有某个方法,但是无法满足子类使用的需求,子类在自身的原型对象上创建同名的全新方法
+        Student.prototype.sayHello=function(){
+            console.log(`我叫${this.name},今年${this.age}岁,我有${this.price}元钱`)
+        }
+
+
+        var s1 = new Student('小王',17,10000000000);
+        // s1.sayHello    =>  s1.__proto__.sayHello(Student.prototype.sayHello)
+        // Student.prototype.__proto__.sayHello() => Person.prototype.sayHello
+        s1.sayHello();
+        // console.log(s1)
+    </script>
+</body>
+</html>
