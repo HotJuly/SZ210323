@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //   需求1: 
+        //     现在2个人, 都有姓名与年龄(值自己指定), 都能自我介绍自己的姓名和年龄, 能得到当前的总人数
+        //   需求2: 
+        //     现在又有了一个学生, 它有身价的属性, 能介绍它的所有信息
+        //     又有一个老师, 它有教授课程的属性, 能介绍它的所有信息
+
+        // class是ES6新增的语法,js中的继承只有一种手段,就是通过原型链
+        // class就是组合继承的语法糖
+        // 什么是方法?
+        // 方法是个函数,方法是特殊的属性,特殊在属性值是函数
+        /*
+            class注意点:
+                1.class中声明的方法都会存到原型对象上(此处注意:只有用上ES6简写语法的方法,才会放在原型对象上)
+                2.class中声明的属性都会存在实例对象上(如果一个方法写成函数表达式的语法,就会存放到this身上)
+                3.使用static关键字可以将某些属性存放到构造函数身上
+                4.super关键字的使用
+                    1)作为函数使用
+                        相当于组合继承中的第一步,借调父类加工子类实例,获取到父类的所有属性
+                        Person.call(this,name,age)
+                    2)作为对象使用
+                        如果是不在静态方法中使用,它相当于是父类的原型对象
+                        如果是在静态方法中使用,它相当于是父类本身
+                5.extends关键字,用来确定父类是谁(相当于组合继承的第二部)
+        */
+
+        class Person{
+            constructor(name,age){
+                this.name=name;
+                this.age=age;
+                Person.count+=1;
+            }
+
+            // sayHello=function(){
+            //     console.log(`我叫做${this.name},我今年${this.age}`)
+            // }
+
+            sayHello(){
+                console.log(`我叫做${this.name},我今年${this.age}`)
+            }
+
+            static count = 0
+        }
+
+        var p1 = new Person("xiaoming",18)
+        // console.log(p1,Person.count)
+        // p1.sayHello();
+
+
+        class Student extends Person{
+            constructor(name,age,price){
+                // 相当于组合继承中的第一步,借调父类加工子类实例,获取到父类的所有属性
+                // Person.call(this,name,age)
+                super(name,age);
+                // this.name=name;
+                // this.age=age;
+                this.price=price
+                // super.sayHello();
+            }
+
+            static getCount(){
+                console.log(`当前有${super.count}人`)
+            }
+
+            sayHello(){
+                console.log(`我叫做${this.name},我今年${this.age},我有${this.price}钱`)
+                super.sayHello();
+            }
+        }
+
+        var s1= new Student('小王',99,100);
+        // console.log('s1',s1)
+        // Student.getCount();
+        s1.sayHello();
+    </script>
+</body>
+</html>
