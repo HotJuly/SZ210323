@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 如果实例对象使用一个属性,自身如果没有,会顺着原型链查找
+        // p1.c=>p1.__proto__.c
+        // p1.toString=>p1.__proto__.toString=>p1.__proto__.__proto__.toString
+        /*
+            原型相关面试题注意点:
+                1.person.prototype的值是否发生了变化
+                2.实例对象的创建时机
+
+            在js中,查找一个属性会顺着原型链向上查找
+                但是,设置属性与原型链,完全没有关系
+
+        */
+        function person(name){
+            this.name=name;
+        }
+
+        person.prototype = {
+            c:3
+        }
+
+        var p1=new person("xiaoming");
+
+        // person.prototype.c=3;
+        // p1.c=1;
+        // p1.c+=1;
+        p1.c = p1.c + 1;
+        // p1.c = p1.__proto__.c + 1;
+        // p1.c = 3 + 1;
+        console.log(p1,p1.c,person.prototype.c)
+
+        // console.log(p1 instanceof person)
+        /*
+            A instanceof B
+            作用:
+                判断A是否是B的实例对象(直接或者间接)
+                判断B是否出现在A的原型链上的
+            查找规则:
+                A.__proto__ === B.prototype
+                A.__proto__.__proto__ === B.prototype
+        */
+    </script>
+</body>
+</html>

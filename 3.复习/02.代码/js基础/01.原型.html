@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            无论是变量名还是函数名,都是同一个东西,统称为标识
+                标识内部存放的是数据,我们一般称为变量名,如果存放的是函数,我们称为函数名
+
+            问题:如何区分一个函数是不是构造函数?
+                区分函数是不是构造函数,需要通过调用方式来确定
+
+            问题:栈内存能存储什么东西?堆内存能存储什么东西?
+                栈内存可以存储基本数据类型数据,标识,某个对象的地址值
+                堆内存可以存储对象数据类型
+                注意:栈内存可以存储基本数据类型数据,不代表基本数据类型的数据只能放在栈内存
+
+
+            原型总结:
+                1.每个实例对象都有隐式原型属性:__proto__
+                2.每个构造函数都有显示原型属性:prototype
+                3.实例对象的隐式原型指向构造函数的显示原型
+                4.原型对象身上具有一个constructor属性,执行构造函数本身
+
+                注意:在js中,书写对象结构具有层级关系,但是在实际堆内存中,每个对象都是兄弟关系,只是可能会引用对方的地址值
+        */
+
+        // var a = "a";
+        // function b(){
+
+        // }
+        // b=3;
+        // var obj= {
+        //     a:{
+
+        //     }
+        // }
+
+        // 45-50行也是代码,这段代码的用处,就是在内存中创建一个函数
+        //52行也是代码,不过这段代码的用处,是执行person函数的函数体代码
+
+        function person(name){
+            // var this = new Object;
+            this.name=name;
+            // return this;
+            // return {
+            //     name:666
+            // };
+        }
+
+        var p1=new person("xiaoming");
+        console.log(p1)
+
+        /*
+            new构造调用所做的事情:
+                1.将传入的实参,存入形参中
+                2.创建this,并向内部注入一个实例对象
+                3.控制return的结果
+                    如果函数体中没有return,会默认返回当前创建的this对象
+                    如果函数体中有return,
+                            如果return的是基本数据类型,还是会返回this
+                            如果return的是对象数据类型,就会返回该对象,不会返回this
+                4.给当前的实例对象添加隐式原型属性__proto__
+                    this.__proto__ = person.prototype
+                    注意:会将创建this的时候,当前person的显示原型属性的值赋值给实例对象(是这一瞬间)
+        */
+    </script>
+</body>
+</html>

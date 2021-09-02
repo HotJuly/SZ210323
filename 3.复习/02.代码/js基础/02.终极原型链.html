@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            1.js中,万物皆对象(除了基本数据类型)
+            2.每个对象都是Object的实例对象
+            3.每个函数都是Function的实例对象(包括自己????)
+            4.js中,函数是一等公民,它既是函数,又是对象(通过prototype,__proto__就可以看出他是个对象)
+
+
+            语法糖:
+                1.function a(){}    =>  new Function("函数体")
+                2.[]        =>  new Array([]);
+                3.{}        =>  new Object({})
+
+            在整个终极原型链图中,作者自己制定了4条线:
+                1.Function.__proto__ === Function.prototype
+                    因为Function也是一个函数,如果他想要使用到函数这个类型所具有的公共方法,
+                    那么必须有这条线,某则他可能无法使用call等方法
+                2.Object.__proto__ === Function.prototype
+                    同1
+                3.Object.prototype.__proto__ === null
+                    由于js的继承是通过隐式原型链实现的,如果Object的原型对象的隐式原型属性指向自身,
+                    那么原型链将会进入死循环
+                4.Function.prototype.__proto__ === Object.prototype
+                    由于js中,函数也是对象,所以有权利使用对象类型所有的方法,如果没有这条线,
+                    所有的函数将无法使用Object.prototype身上的公共方法
+
+            注意:js中使用C语言创建的内容一共有三个:
+                1.Object
+                2.Function
+                3.Function.prototype
+
+        */
+        function Foo() {console.log(123)}
+        const f1 = new Foo()
+        const f2 = new Foo()
+
+        const o1 = new Object()
+        const o2 = {}
+
+        // Foo instanceof Object            true
+        // Foo instanceof Function          true
+        // Object instanceof Object         true
+        // Function instanceof Function     true
+        // Function instanceof Object       true
+
+        // Object instanceof Foo            false
+        // f1 instanceof Function           false
+        // f1 instanceof Object             true
+        console.log(Object,Function)
+        console.log(Function.prototype)
+    </script>
+</body>
+
+</html>

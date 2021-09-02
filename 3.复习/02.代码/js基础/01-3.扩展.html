@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 需求:现在有个变量,内部存放任意数据,如何得知当前变量中的数据的类型
+        // 需要用到Object的toString方法
+
+        // var a = [1,2,3]
+        var a = new Date();
+        // console.log(a instanceof Array)
+        // console.log(a.toString())
+        console.log(Object.prototype.toString.call(a).split(' ')[1].replace(']',''))
+        console.log({}.toString.call(a).split(' ')[1].replace(']',''))
+        // [].slice.call
+    </script>
+</body>
+</html>
