@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            this的指向只跟函数的调用方式有关,和声明位置无关
+            this指向:
+                1.普通调用->this指向window
+                    person()
+
+                2.隐式调用->this指向前面的对象
+                    obj.a()
+
+                3.构造调用->this指向本次创建的实例对象
+                    new person();
+
+                4.显示调用->this指向根据用户指定决定
+                    使用call,apply,bind都可以
+
+            特殊的this指向:
+                1.ES6新增箭头函数
+                    箭头函数没有自己的this,使用的是外层作用域的this
+                2.事件监听回调->this指向事件源对象
+                    div.onclick=function(){}
+                3.定时器->this指向window
+                    setTimeout(function(){})
+                4.Vue的生命周期,methods函数,computed,watch
+                    内部的this都统一指向当前的组件实例
+                5.React的事件监听函数
+                    如果使用普通函数写法,this指向undefined
+                    如果使用箭头函数,this指向组件实例
+
+            面试题:call,apply,bind能否改变箭头函数的this
+            解答:不能
+                箭头函数没有自己的this,使用的是外层作用域的this,所以无法改变
+            
+            面试题二:箭头函数能否构造调用
+            解答:不能
+                箭头函数他没有自己的this,所以无法生成实例对象
+                由于无法生成实例对象,所以箭头函数没有原型对象
+        */
+
+        function person(){
+            console.log(this)
+        }
+        // window.person()
+        person()
+
+        var obj = {
+            a:person
+        }
+        obj.a();
+
+        new person();
+
+        person.call(obj);
+    </script>
+</body>
+</html>

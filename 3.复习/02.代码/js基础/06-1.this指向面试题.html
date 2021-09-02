@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var length = 8;
+        var obj = {
+            length:6,
+            fn:function(){
+                return this.length;
+            }
+        };
+
+        (function(fn1){
+            var length = 5;
+            // 数组也是特殊的对象,特殊在属性名是数字
+            // arguments[0]()=>arguments.0()
+            console.log(arguments[0]());
+        })(obj.fn);
+    </script>
+</body>
+</html>

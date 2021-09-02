@@ -55,16 +55,16 @@
                     当前函数调用结束,自动销毁
         */
 
-        function wrap(){
-            var num = 1;
-            var inner = function(){
-                console.log('inner',num)
-            }
-            // console.log(inner)
-            return inner
-        }
-        var a = wrap();
-        a=null;
+        // function wrap(){
+        //     var num = 1;
+        //     var inner = function(){
+        //         console.log('inner',num)
+        //     }
+        //     // console.log(inner)
+        //     return inner
+        // }
+        // var a = wrap();
+        // a=null;
         // var b = wrap();
 
         // (function(){
@@ -78,6 +78,37 @@
         //     window.add = add;
         //     window.getA=getA;
         // })();
+
+        function wrap(){
+            var num = 0;
+            function add1(){
+                num+=1;
+                console.log('add1',num)
+            }
+            function add2(){
+                num+=2;
+                console.log('add2',num)
+            }
+            return {
+                add1,
+                add2
+            }
+        }
+
+        var {add1,add2} = wrap();
+
+        // add1(); //1
+        // add1(); //2
+        // add2(); //2
+        // add2(); //4
+
+        add1(); //1
+        add1(); //2
+        add2(); //4
+        add2(); //6
+
+        add1=null;
+        add2(); //8
     </script>
 </body>
 </html>
