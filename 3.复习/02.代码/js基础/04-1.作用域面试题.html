@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 对象的属性是没有作用域的
+        // 此题特殊对待
+        /*
+            该题是js的漏洞,无法使用正常作用域规则理解
+            当前的函数名,只能在该函数内不可见,而且不可改变
+        */
+        // var obj = {
+        //     name:"xiaoming",
+        //     sayHello:function say(){
+        //         // console.log(say)
+        //         // say = 1;
+        //         // console.log(say)
+        //     }
+        // }
+        // obj.sayHello();
+        // console.log(say)
+
+        (function a(){
+            console.log('a',a)
+            a=6666;
+            console.log('a2',a)
+        })();
+        console.log('a1',a)
+    </script>
+</body>
+</html>

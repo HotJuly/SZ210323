@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            1.闭包的产生条件
+                函数嵌套函数,内部函数使用外部函数的变量,调用外部函数
+                闭包分为两种:有效闭包和无效闭包
+                    return的是有效闭包,该闭包会存活
+                    不return的是无效闭包,当前外部函数执行结束会立马销毁
+
+            2.闭包的产生时间
+                1.外部函数被调用的时候
+                2.内部函数执行函数定义
+            
+            3.闭包的好处
+                延长内部变量的生命周期(将本该销毁的变量保存下来)
+                模块化
+
+            4.闭包的坏处
+                由于本该销毁的变量被闭包保留,保留的内容需要占据一定的内存空间,所以会导致内存泄漏
+                内存泄漏不可怕,可怕的是内存溢出,导致程序宕机
+
+            5.如何解决闭包的副作用
+                尽量不使用闭包
+                手动间接释放闭包
+                    我们将使用到闭包的函数的指向释放,那么没有标识指向该函数,那该函数会被垃圾回收机制销毁
+                    该函数被销毁之后,对应的闭包就没人使用,也会被垃圾回收机制销毁
+
+            6.什么是闭包
+                实现的数据结构:对象
+                闭包应该是一个对象
+                闭包就是意外存活的变量对象
+            
+            7.你在项目中,哪里用到过闭包?
+                防抖节流
+                面试前提前准备好
+
+
+
+            执行上下文:
+                每个函数被调用的时候都会创建出一个全新的执行上下文
+                执行上下文构成部分:
+                    1.运行当前函数所需要的内存空间
+                    2.变量对象(用于收集本次执行中,所有变量名和对应的值,是作用域的实例)
+                创建时机:
+                    每个函数被调用时,自动创建
+                销毁时机:
+                    当前函数调用结束,自动销毁
+        */
+
+        function wrap(){
+            var num = 1;
+            var inner = function(){
+                console.log('inner',num)
+            }
+            // console.log(inner)
+            return inner
+        }
+        var a = wrap();
+        a=null;
+        // var b = wrap();
+
+        // (function(){
+        //     var a = 1;
+        //     function add(){
+        //         a+=1;
+        //     }
+        //     function getA(){
+        //         return a;
+        //     }
+        //     window.add = add;
+        //     window.getA=getA;
+        // })();
+    </script>
+</body>
+</html>

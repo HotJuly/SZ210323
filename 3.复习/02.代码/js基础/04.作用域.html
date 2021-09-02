@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 预解析(声明提升)
+        /*
+            函数名和变量名,统称为标识
+            将函数和变量的声明提升至当前作用域的最前面
+                函数提升:它是整体提升(将函数名以及函数体都提升到当前作用域最前面)
+                变量提升:它是局部提升(将当前变量的声明提升到当前作用域最前面,赋值语句还留在原地)
+                函数表达式的提升相当于是变量提升
+        */
+
+        // var b = a();
+        a=3;
+        // console.log(b)
+        // function a(){
+        //     var c=2;
+        //     return 123;
+        // }
+
+        // 此种写法:函数表达式
+        var a = new Function("return 123;")
+        console.log(a)
+    </script>
+</body>
+</html>
