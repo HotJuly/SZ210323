@@ -21,27 +21,84 @@
                 3.新数组中的每一项的结果,由回调函数的返回值决定
         */
 
-        var arr = [1,2,3];
-        var newArr = arr.map((item,index)=>{
-            return item+1
-        })
-        console.log(newArr,arr)
+        // var arr = [1,2,3];
+        // var newArr = arr.map((item,index)=>{
+        //     return item+1
+        // })
+        // console.log(newArr,arr)
 
-        // var obj = {
-        //     name:"xiaoming",
-        //     age:"18",
-        //     sex:"man"
+
+
+        
+        /*
+            对象map方法思路:
+                1.根据旧的对象生成全新的对象,并返回
+        
+        
+        */
+
+        // Object.prototype.myMap=function(fn){
+        //     // this->存有obj对象的地址值
+        //     var newObj = {};
+
+        //     // 获取到当前this身上所有的属性名key组成的数组
+        //     var keys = Object.keys(this);
+
+        //     var that = this;
+
+        //     keys.forEach(function(key){
+        //         var value = that[key];
+        //         newObj[key] = fn(value,key)
+        //     })
+        //     return newObj;
         // }
 
-        // obj.myMap((value,key)=>{
+        
+        // Object.prototype.myMap=function(fn){
+        //     // this->存有obj对象的地址值
+        //     var newObj = {};
+
+        //     for (const key in this) {
+        //         // 通过hasOwnProperty方法可以判断一个属性是否是自身拥有
+        //         if(this.hasOwnProperty(key)){
+        //             // console.log(key)
+        //             var value = this[key];
+        //             newObj[key] = fn(value,key)
+        //         }
+        //     }
+        //     return newObj;
+        // }
+
+
+        var obj = {
+            name:"xiaoming",
+            age:"18",
+            sex:"man"
+        }
+        // console.log(JSON.parse(JSON.stringify(obj)))
+        var newObj = JSON.parse(JSON.stringify(obj),function(key,value){
+            // console.log(key,value)
+            if(key){
+                return value+1;
+            }else{
+                return value
+            }
+        })
+        console.log(1111,newObj)
+
+        // var newObj = obj.myMap((value,key)=>{
+        //     console.log(value,key)
         //     return value + 1
         // })
+        // console.log(newObj)
 
         // {
         //     name:"xiaoming1",
         //     age:"181",
         //     sex:"man1"
         // }
+
+
     </script>
 </body>
 </html>

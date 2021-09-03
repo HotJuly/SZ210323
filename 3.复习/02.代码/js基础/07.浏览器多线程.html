@@ -16,21 +16,33 @@
       aaaaaaa
   </div>
   <script>
-      Promise.resolve().then(() => { // ?任务
+    //   如果主线程代码不视为第一宏任务,那么微任务队列执行优先于宏任务队列执行
+    // 准确说法:执行每个宏任务之前都会清空当前的微任务队列
+    //     渲染时机:微任务队列执行结束之后,宏任务队列执行之前
+    // 浏览器监视到页面DOM更新之后,不会立马渲染页面,会做类似防抖才做
+    //  浏览器负责渲染页面的线程叫做GUI渲染线程
+    // 浏览器只有一个微任务队列,和一个宏任务队列
+      Promise.resolve().then(() => { // 微任务
           alert('promise1') // 页面渲染了吗?
       }) 
-      Promise.resolve().then(() => { // ?任务
+      Promise.resolve().then(() => { // 微任务
           alert('promise2') // 页面渲染了吗?
       }) 
-      setTimeout(() => {// ?任务
+      setTimeout(() => {// 宏任务
           alert(document.getElementById('content').innerHTML)  // 页面渲染了吗?
       }, 0)
-      document.getElementById('test').onclick = () => {// ?任务
+      document.getElementById('test').onclick = () => {// 宏任务
           document.getElementById('content').innerHTML = 'xxxx'  // dom渲染 
-          setTimeout(() => {// ?任务  
+        //   document.getElementById('content').innerHTML = 'xxxx1'  // dom渲染 
+        //   document.getElementById('content').innerHTML = 'xxxx2'  // dom渲染 
+        //   document.getElementById('content').innerHTML = 'xxxx3'  // dom渲染 
+        //   document.getElementById('content').innerHTML = 'xxxx4'  // dom渲染 
+        //   document.getElementById('content').innerHTML = 'xxxx5'  // dom渲染 
+        //   document.getElementById('content').innerHTML = 'xxxx6'  // dom渲染 
+          setTimeout(() => {// 宏任务  
               alert(document.getElementById('content').innerHTML) // 页面更新渲染了吗?
           }, 0); 
-          Promise.resolve().then(() => { // ?任务 
+          Promise.resolve().then(() => { // 微任务 
               alert('promise3') //页面更新渲染了吗?
           }) 
       }
