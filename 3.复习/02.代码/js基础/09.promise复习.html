@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            Promise
+                数据类型:函数
+
+                接收一个执行器函数,参数数据类型为函数
+                    该执行器函数还被同步执行
+                    该执行器函数接收两个实参
+                        resolve   ->  当resolve函数被调用,返回的promise对象状态会变成成功
+                        reject   ->  当reject函数被调用,返回的promise对象状态会变成失败
+                
+                返回值:promise类型的对象
+                    该对象具有三种状态
+                        pending -> 初始状态
+                        resolved
+                        rejectd
+                        注意:promise对象的状态是不可逆的,只能改变一次
+
+        函数.then
+            他接收的参数数量:2
+            实参数据类型:函数
+                第一个回调函数会在前面的promise状态变成成功时,自动调用
+                第二个回调函数会在前面的promise状态变成失败时,自动调用
+
+            返回值:返回一个全新的promise对象
+                如何控制该promise的状态
+                    变成成功
+                        如果回调函数的返回值不是promise对象,自动变为成功
+                            同时返回的结果会作为当前promise的PromiseResult
+                        如果回调函数的返回值是状态为成功的promise对象,自动变为成功
+                    变成失败
+                        如果回调函数的返回值是状态为失败的promise对象,自动变为失败
+                        如果回调函数的代码出现报错,自动变成失败
+                
+            注意:
+                1.虽然.then返回的promise对象状态会受到回调函数的返回值控制,但是他不会使用回调函数返回的promise对象
+                2.then函数前面的promise只要状态不是pending状态,就会自动触发对应的回调函数
+            
+        函数.catch
+            catch其实就是.then,他只是.then的语法糖
+            .then(null,()=>{})
+        */
+
+        // var promise = new Promise((resolve, reject) => {
+        //     console.log('promise1')
+        //     setTimeout(() => {
+        //         reject()
+        //     }, 1000)
+        //     // setTimeout(()=>{
+        //     //     reject()
+        //     // },2000)
+        // })
+        // setTimeout(() => {
+        //     promise.then(() => {
+        //         console.log('success')
+        //     }, () => {
+        //         console.log('fail')
+        //     })
+        // }, 2000)
+
+        // var promise = new Promise((resolve,reject)=>{
+        //     setTimeout(()=>{
+        //         resolve()
+        //     },1000)
+        // });
+
+        // var p2 = Promise.resolve();
+        // var p1 = promise.then(()=>{
+        //     console.log('success')
+        //     // return 123;
+        //     // return Promise.reject();
+        //     // throw new Error('xixi')
+        //     return p2;
+        // },()=>{
+        //     console.log('fail')
+        // })
+        // console.log(p1===p2)
+
+
+        // promise.then(()=>{
+        //     console.log('success1')
+        // },()=>{
+        //     console.log('fail1')
+        // }).then(()=>{
+        //     console.log('success2')
+        // },()=>{
+        //     console.log('fail2')
+        // }).catch((error)=>{
+        //     // 弹出message框提示用户
+        //     console.log('error')
+        // })
+
+        /*
+            async和await
+                他们是promise和.then的语法糖
+                await右侧可以书写一个promise对象,但是不是promise对象也不会报错
+                await右侧如果不是promise对象,await表达式会返回右侧结果
+                返回值:返回的一定是一个全新的promise对象
+                    如何控制该对象的状态
+                        变成成功
+                            只要当前函数内的所有代码都成功执行,promise对象的状态自动变为成功
+                        变成失败
+                            只要内部代码出现报错
+                
+
+
+        */
+
+        async function a(){
+            var a =await 1;
+            console.log(666,a)
+            // await c;
+            await new Promise((resolve)=>{
+                setTimeout(resolve,1000,6)
+            })
+            // await Promise.resolve(1);
+            // return 1;
+            console.log(7)
+        }
+        console.log(1,a())
+
+        // console.log(1)
+
+        // new Promise((resolve)=>{
+        //         setTimeout(resolve,1000,6)
+        // })
+        // .then(()=>{
+        //     console.log(7)
+        // })
+
+        // console.log(2)
+        
+    </script>
+</body>
+
+</html>
