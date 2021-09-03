@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            需求:手写实现对象的map方法(参考数组map)
+            数组的map特点:
+                1.map一共可以接受两个实参
+                    第一个实参数据类型必须是函数,数组中每有一项就会执行一次该函数
+                        回调函数接受3个参数
+                            1.item->代表遍历数组中得到的每一项(相当于对象的value)
+                            2.index->代表遍历数组中得到的每一项的下标(相当于对象的key)
+                    第二个实参是回调函数的this指向,可以不传
+                2.根据旧数组生成全新的数组,不会影响到旧数组
+                3.新数组中的每一项的结果,由回调函数的返回值决定
+        */
+
+        var arr = [1,2,3];
+        var newArr = arr.map((item,index)=>{
+            return item+1
+        })
+        console.log(newArr,arr)
+
+        // var obj = {
+        //     name:"xiaoming",
+        //     age:"18",
+        //     sex:"man"
+        // }
+
+        // obj.myMap((value,key)=>{
+        //     return value + 1
+        // })
+
+        // {
+        //     name:"xiaoming1",
+        //     age:"181",
+        //     sex:"man1"
+        // }
+    </script>
+</body>
+</html>

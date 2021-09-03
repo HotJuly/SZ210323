@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
         /*
@@ -46,20 +48,182 @@
                 由于无法生成实例对象,所以箭头函数没有原型对象
         */
 
-        function person(){
-            console.log(this)
+        function person(a, b, c) {
+            console.log(this, a, b, c)
+            return a + b + c
         }
         // window.person()
-        person()
+        // person()
 
-        var obj = {
-            a:person
+        // var obj = {
+        //     a:person
+        // }
+        // obj.a();
+
+        // new person();
+
+        // person.call(obj);
+
+        /*
+            call和apply的区别:
+                相同点:
+                    1.都可以将当前函数的this指向改变为指定对象(传入的第一个实参)
+                        注意:只能改变当前本次执行的this
+                    2.都会同步调用被借调函数
+                    3.如果第一个实参的值是undefined或者null,两个函数的this都会指向window
+                    4.返回值等于被借调函数返回的结果
+                不同点:
+                    1.给被借调函数传递实参的方式不同
+                        call方法->传递call方法的第二个实参开始都会传递给被借调函数作为实参
+                            call方法可以接受的实参数量,从0-无限大
+                        apply方法->传递apply方法的第二个实参必须是数组,该数组拆解之后会传递给被借调函数作为实参
+                            apply方法可以接受的实参数量,从0-2
+
+            需求:手写实现call方法
+        */
+
+        var obj1 = {
+            name: "xiaoming"
         }
-        obj.a();
+        // person.call(obj1,1,2,3);
+        // person.apply(obj1,[1,2,3]);
+        // person();
 
-        new person();
 
-        person.call(obj);
+        // Function.prototype.myCall=function(thatThis,...args){
+        //     // thatThis=>用户指定的函数this
+        //     // this->person函数
+        //     // 将person函数内部的this改变为thatThis
+
+        //     if(thatThis == undefined||thatThis === null){
+        //         // 3.如果第一个实参的值是undefined或者null,两个函数的this都会指向window
+        //         thatThis = window;
+        //     }
+
+        //     // 1.都可以将当前函数的this指向改变为指定对象(传入的第一个实参)
+        //     thatThis._fn = this;
+
+        //     // 2.都会同步调用被借调函数
+        //     var result = thatThis._fn(...args);
+
+        //     delete thatThis._fn;
+
+        //     // 4.返回值等于被借调函数返回的结果
+        //     return result;
+        // }
+
+        Function.prototype.myCall = function (thatThis) {
+            // thatThis=>用户指定的函数this
+            // this->person函数
+            // 将person函数内部的this改变为thatThis
+
+            var args = [];
+            for (var index = 1; index < arguments.length; index++) {
+                args.push(arguments[index])
+            }
+
+            if (thatThis == undefined || thatThis === null) {
+                // 3.如果第一个实参的值是undefined或者null,两个函数的this都会指向window
+                thatThis = window;
+            }
+
+            // 1.都可以将当前函数的this指向改变为指定对象(传入的第一个实参)
+            thatThis._fn = this;
+
+            // 2.都会同步调用被借调函数
+            // var result = thatThis._fn(args.toString());
+            // eval("thatThis._fn(1,2,3)")
+            var result = eval("thatThis._fn(" + args.toString() + ")");
+
+            delete thatThis._fn;
+
+            // 4.返回值等于被借调函数返回的结果
+            return result;
+        }
+
+        // console.log(person.myCall(obj1,1,2,3));
+
+        /*
+            bind和call的区别:
+                相同点:
+                    1.都可以改变函数的this指向(传入的第一个实参是用户指定的this指向)
+                    2.传给被借调函数的实参方式相同
+                        传递call/bind方法的第二个实参开始都会传递给被借调函数作为实参
+                    3.如果第一个实参的值是undefined或者null,两个函数的this都会指向window
+                不同点:
+                    1.返回值不同
+                        call方法->返回的是被借调函数的执行结果
+                        bind方法->改变了this指向的全新函数
+                    2.调用时机不同
+                        call方法会同步调用被借调函数,bind由于返回的是一个全新的函数,需要用户再次调用
+                    3.bind方法传递实参可以分批传入
+        
+        */
+
+
+        Function.prototype.myBind = function (thatThis, ...args) {
+            // thatThis->用户指定的this指向
+            // this->person函数(被借调函数)
+            var that = this;
+            return function (...args2) {
+                that.myCall(thatThis, ...args, ...args2);
+            }
+        }
+
+        // var fn = person.bind(obj1,1,2);
+        var fn = person.myBind(obj1, 1, 2);
+        person();
+        fn(3)
+
+        // 函数柯里化->将以此参数分为多次传入
+        // 使用地点:React事件回调函数
+
+        // handleChange=(type)=>{
+        //     return function(event){
+        //         console.log(type)
+        //     }
+        // }
+        // <input onChange={handleChange('username')} type="text" id="username"/>
+        // <input onChange={handleChange('password')} type="text" id="password"/>
+
+        // function A(sex,age,name){
+        //     return {
+        //         sex,
+        //         age,
+        //         name
+        //     }
+        // }
+
+        // function B(sex){
+        //     return function(age,name){
+        //         return {
+        //             sex,
+        //             age,
+        //             name
+        //         }
+        //     }   
+        // }
+
+        function B(sex) {
+            return function (age) {
+                return function (name) {
+                    return {
+                        sex,
+                        age,
+                        name
+                    }
+                }
+            }
+        }
+        var A = B("女")
+        var C = A(17)
+        var obj = C("小红")
+        var obj = C("小红1")
+        var obj = C("小红2")
+        var obj = C("小红3")
+        var obj = C("小红4")
+        console.log(obj)
     </script>
 </body>
+
 </html>
