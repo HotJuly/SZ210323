@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var obj = {
+        //     name:"xiaoming",
+        //     age:18
+        // }
+
+        // var {name,age,sex="男"}= obj;
+        // console.log(name,age,sex)
+
+        // var arr=[1,2,3];
+        // var [a,b,c,d=8,e=9] = arr;
+        // console.log(a,b,c,d,e)
+
+        // var  arr = [1,2,3,[4,5,[7,8]]];
+        // console.log(arr.toString().split(','))
+
+        // var a=NaN;
+        // var b=NaN;
+        // console.log(a===b,Object.is(a,b))
+
+        var obj = {
+            name:"xiaoming"
+        };
+        var obj1={
+            age:18
+        }
+        // console.log({...obj,...obj1})
+        console.log(Object.assign(obj,obj1))
+
+        
+    // 用于重置当前组件状态
+    // resetData() {
+    //   Object.assign(this.$data, this.$options.data());
+    // }
+    </script>
+</body>
+</html>
