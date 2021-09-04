@@ -31,9 +31,30 @@ Vue.config.productionTip = false
 
 */
 
-Vue.config.errorHandler = function (err, vm, info) {
-  console.log(err, vm, info)
-}
+// Vue.config.errorHandler = function (err, vm, info) {
+//   console.log(err, vm, info)
+// }
+
+// Vue.filter('timeFilter', function (value) {
+//   // 返回处理后的值
+//   return value +"1"
+// })
+
+// Vue.mixin({
+//   mounted(){
+//     console.log('mounted',this.$options.a)
+//   }
+// })
+
+
+// var res = Vue.compile('<h1>{{msg}}</h1>')
+
+// new Vue({
+//   data: {
+//     msg: 'hello guigu!!!'
+//   },
+//   render: res.render
+// }).$mount('#app')
 
 new Vue({
   render: h => h(App),

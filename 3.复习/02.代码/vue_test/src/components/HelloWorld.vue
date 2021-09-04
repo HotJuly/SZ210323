@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>{{name}}</h2>
+    <!-- <h2>age:{{user.age | timeFilter}}</h2> -->
   </div>
 </template>
 
@@ -11,40 +12,52 @@ export default {
   props: {
     msg: String
   },
+  // props:["msg"],
   a:2,
   data(){
     return{
-      name:"xiaoming"
+      name:"xiaoming",
+      user:{
+        sex:"nan",
+        age:18
+      },
+      _aabb:3
     }
   },
   mounted(){
     // console.log('mounted',this.$options.a)
     // console.log(c)
+    // console.log(this.$data.name)
+    console.log(this.$data._aabb)
 
 
     // nextTick的实现原理是通过.then实现的
-    console.log(1)
+    // console.log(1)
 
-    this.name="xiaohong";
-    // 是不是具有一个看不见的nextTick
+    // this.name="xiaohong";
+    // // 是不是具有一个看不见的nextTick
 
-    Promise.resolve().then(()=>{
-      console.log('Promise1')
-    })
+    // Promise.resolve().then(()=>{
+    //   console.log('Promise1')
+    // })
 
-    this.$nextTick(()=>{
-      console.log('$nextTick1')
-    })
+    // this.$nextTick(()=>{
+    //   console.log('$nextTick1')
+    // })
 
-    this.$nextTick(()=>{
-      console.log('$nextTick2')
-    })
+    // this.$nextTick(()=>{
+    //   console.log('$nextTick2')
+    // })
 
-    Promise.resolve().then(()=>{
-      console.log('Promise2')
-    })
+    // Promise.resolve().then(()=>{
+    //   console.log('Promise2')
+    // })
 
-    console.log(2)
+    // console.log(2)
+
+    // delete this.user.age;
+    // this.$delete(this.user,"age");
+    // console.log(this.user)
   }
 }
 </script>
