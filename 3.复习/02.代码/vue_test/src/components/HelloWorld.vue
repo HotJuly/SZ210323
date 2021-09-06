@@ -1,14 +1,20 @@
 <template>
   <div class="hello">
     <!-- <h1>{{ msg }}</h1> -->
-    <h2>{{name}}</h2>
-    <input type="text" :value="msg12" @input="handleInput"/>
+    <!-- <h2 v-once>{{name}}</h2>
+    <input type="text" :value="msg12" @input="handleInput"/> -->
     <!-- <h2>age:{{user.age | timeFilter}}</h2> -->
-    <button @click="handleDestroy">销毁hello组件</button>
+    <!-- <button @click="handleDestroy">销毁hello组件</button>
+    <component :is="showComponent"></component> -->
+    <slot name="header"></slot>
+    <slot name="default"></slot>
+    <slot name="footer" row="123"></slot>
   </div>
 </template>
 
 <script>
+import A from './A.vue';
+import B from './B.vue';
 export default {
   name: 'HelloWorld',
   props: {
@@ -25,7 +31,8 @@ export default {
         sex:"nan",
         age:18
       },
-      _aabb:3
+      _aabb:3,
+      showComponent:A
     }
   },
   inject:["msg1"],
@@ -75,8 +82,9 @@ export default {
       this.$emit('update:msg12',value)
     },
     handleDestroy(){
-      this.$destroy();
-      this.name="小红666"
+      // this.$destroy();
+      // this.name="小红666"
+      this.showComponent = B;
       console.log('handleDestroy')
     }
   },

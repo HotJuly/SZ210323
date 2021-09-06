@@ -7,7 +7,17 @@
     <!-- <HelloWorld class="A" v-model="msg" msg="Welcome to Your Vue.js App"/> -->
 
     <!-- <HelloWorld class="A" :msg12.sync="msg" msg="Welcome to Your Vue.js App"/> -->
-    <HelloWorld class="A" :msg12="msg" @update:msg12="value=>msg=value" msg="Welcome to Your Vue.js App"/>
+    <HelloWorld class="A" :msg12="msg" @update:msg12="value=>msg=value" msg="Welcome to Your Vue.js App">
+      <template v-slot:default>
+        <h1>我是默认插槽</h1>
+      </template>
+      <template v-slot:header>
+        <h1>我是header插槽</h1>
+      </template>
+      <template v-slot:footer="{row}">
+        <h1>我是{{row}}插槽</h1>
+      </template>
+    </HelloWorld>
   </div>
 </template>
 
