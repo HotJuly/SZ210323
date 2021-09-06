@@ -1,9 +1,10 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <!-- <h1>{{ msg }}</h1> -->
     <h2>{{name}}</h2>
-    <input type="text" :value="data111" @input="handleInput"/>
+    <input type="text" :value="msg12" @input="handleInput"/>
     <!-- <h2>age:{{user.age | timeFilter}}</h2> -->
+    <button @click="handleDestroy">销毁hello组件</button>
   </div>
 </template>
 
@@ -15,7 +16,7 @@ export default {
     value:String,
     data111:String
   },
-  // props:["msg"],
+  props:["msg12"],
   a:2,
   data(){
     return{
@@ -29,11 +30,12 @@ export default {
   },
   inject:["msg1"],
   mounted(){
+    console.log(this.$parent)
     // console.log('mounted',this.$options.a)
     // console.log(c)
     // console.log(this.$data.name)
     // console.log(this.$data._aabb)
-    console.log('inject',this.msg1)
+    // console.log('inject',this.msg1)
 
 
     // nextTick的实现原理是通过.then实现的
@@ -69,7 +71,13 @@ export default {
       // console.log('handleInput')
       const value = event.target.value;
       // this.value=value;
-      this.$emit('abc',value)
+      // this.$emit('abc',value)
+      this.$emit('update:msg12',value)
+    },
+    handleDestroy(){
+      this.$destroy();
+      this.name="小红666"
+      console.log('handleDestroy')
     }
   },
   model: {

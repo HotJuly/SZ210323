@@ -4,7 +4,10 @@
     <!-- <input type="text" v-model="msg"/> -->
     <!-- <input type="text" :value="msg" @input="event=>msg=event.target.value"/> -->
     <h1>App-msg:{{msg}}</h1>
-    <HelloWorld class="A" v-model="msg" msg="Welcome to Your Vue.js App"/>
+    <!-- <HelloWorld class="A" v-model="msg" msg="Welcome to Your Vue.js App"/> -->
+
+    <!-- <HelloWorld class="A" :msg12.sync="msg" msg="Welcome to Your Vue.js App"/> -->
+    <HelloWorld class="A" :msg12="msg" @update:msg12="value=>msg=value" msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
@@ -19,7 +22,7 @@ export default {
   a:1,
   mounted(){
     // console.log('mounted',this.$options.a)
-    console.log('App mounted')
+    console.log('App mounted',this.$children)
   },
   // mixins: [mixin]
   provide:{

@@ -40,11 +40,11 @@ Vue.config.productionTip = false
 //   return value +"1"
 // })
 
-Vue.mixin({
-  mounted(){
-    console.log('mounted',this.$options.a)
-  }
-})
+// Vue.mixin({
+//   mounted(){
+//     console.log('mounted',this.$options.a)
+//   }
+// })
 
 
 // var res = Vue.compile('<h1>{{msg}}</h1>')
