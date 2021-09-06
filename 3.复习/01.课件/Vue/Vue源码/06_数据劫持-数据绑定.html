@@ -11,8 +11,6 @@
   <body>
     <div id="app">
       <p>{{msg}}</p>
-      <p>{{person.name}}</p>
-      <button id="btn">修改name</button>
     </div>
     <script src="./js/observer.js"></script>
     <script src="./js/watcher.js"></script>
@@ -39,21 +37,10 @@
       */
       var vm = new MVVM({
         el: "#app",
-        // el: document.getElementById("app"),
         data: {
-          msg: "hello mvvm",
-          person:{
-            name:"xiaoming"
-          }
+          msg: "hello mvvm"
         }
       });
-
-      // vm.person.name=123;
-
-      btn.onclick=function(){
-        vm.person.name=123;
-        // vm._data.person.name=123;
-      }
 
     </script>
   </body>
