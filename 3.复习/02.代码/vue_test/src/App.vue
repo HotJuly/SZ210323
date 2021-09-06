@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <input type="text" v-model="msg"/> -->
+    <!-- <input type="text" :value="msg" @input="event=>msg=event.target.value"/> -->
+    <h1>App-msg:{{msg}}</h1>
+    <HelloWorld class="A" v-model="msg" msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
@@ -9,13 +12,23 @@
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
+  name:"App",
   components: {
     HelloWorld
   },
   a:1,
   mounted(){
     // console.log('mounted',this.$options.a)
+    console.log('App mounted')
+  },
+  // mixins: [mixin]
+  provide:{
+    msg1:"hello everybody"
+  },
+  data(){
+    return{
+      msg:"666"
+    }
   }
 }
 </script>

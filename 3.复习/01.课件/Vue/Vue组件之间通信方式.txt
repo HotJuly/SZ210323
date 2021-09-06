@@ -10,4 +10,29 @@
 		3.子组件通过配置对象,声明props属性,即可接收到函数
 		4.子组件调用父组件传下来的函数,并传入实参(this.msg=实参)
 
-2.
+2.provide/inject
+	使用场景:祖孙组件之间传参
+	祖先组件:
+		在配置对象中,书写provide属性,属性值为对象
+	后代组件:
+		在配置对象中,书写inject属性,属性值为数组,数组中的每一项数据想要接受的provide属性名即可
+	
+	注意点:
+		1.inject查找属性,是沿着组件链,逆向查找,直到找到根组件为止
+		2.默认provide暴露的数据不是响应式的,如果需要响应式效果,需要自己手动创建响应式对象
+		
+
+3.自定义事件
+	v-model="msg"
+		对input标签使用
+			双向数据绑定(Vue是一个伪双向数据流的框架)
+			1.将msg属性的值作为默认值显示在input框内部
+    				<input type="text" :value="msg"/>
+			2.当input框内部数据发生变化,会同步修改data状态中的msg属性(默认绑定的是input事件)
+    				<input type="text" @input="event=>msg=event.target.value"/>
+		对组件使用
+			1.将msg属性的值作为标签属性,传递给子组件,子组件可以通过props接收,默认属性名value
+    				<HelloWorld :value="msg"/>
+			2.父组件会给子组件绑定自定义事件,默认事件名称input
+
+			可以通过model自定义v-model传参的属性名和事件名
