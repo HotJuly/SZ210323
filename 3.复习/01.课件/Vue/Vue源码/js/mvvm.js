@@ -62,11 +62,16 @@ function MVVM(options) {
         data对象身上具有多少个属性,就会被数据劫持多少次
         注意:所谓的数据劫持,劫持的是属性名,不是属性值
 
+        // 这个技术是什么?为什么要用?怎么实现的?有什么注意点?
+
     */
     observe(data, this);
     
     // observe(data, vm);
 
+    // 3.模版解析
+    // 目的:主要目的是为了实现初始化页面渲染
+    // 如果没有传入el,默认使用body
     this.$compile = new Compile(options.el || document.body, this)
 }
 

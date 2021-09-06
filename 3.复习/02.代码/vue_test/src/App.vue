@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class=" B">
     <img alt="Vue logo" src="./assets/logo.png">
     <!-- <input type="text" v-model="msg"/> -->
     <!-- <input type="text" :value="msg" @input="event=>msg=event.target.value"/> -->

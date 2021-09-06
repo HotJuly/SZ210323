@@ -27,6 +27,7 @@ Observer.prototype = {
 
     defineReactive: function(data, key, val) { //整体的data  msg  'zhaoliying'
         // vm._data, "msg", "hello mvvm"
+        // data中有多少个属性,就会生成多少个Dep对象(一个属性对应一个dep对象)
         var dep = new Dep();  //根据遍历的每个属性都会创建一个特定的dep对象与相应的data属性进行关联
 
         // 此处在递归进行数据劫持,对data中的所有属性进行深度递归
