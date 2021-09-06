@@ -18,10 +18,88 @@
         // (包括开始和结束的两个数值)
         // 例如:sumPager(0,2) => 0  =>等于-1+0+1
         // 例如:sumPager(2,5) => 7  =>等于1+5+10+(-9)
-        // 例如:sumPager(4,7) => 0  =>等于10+(-9)+(-7)+30
+        // 例如:sumPager(4,7) => 24  =>等于10+(-9)+(-7)+30
 
         // 该题在实现功能的前提下,要考虑下计算性能
         // 注意:sumPager会被调用多次
+
+
+        //数组求和
+        /*
+            第一种方案:直接使用reduce统计
+            此代码中一共调用三次sumPager函数
+                使用了三次reduce,reduce特性无论返回值为什么,都会遍历整个数组
+                    此处函数执行次数:3*10000=30000
+        */
+        // function sumPager(startIndex,endIndex){
+        //     return nums.reduce((pre,item,index)=>{
+        //         if(index>=startIndex&&index<=endIndex){
+        //             return pre + item
+        //         }else{
+        //             return pre
+        //         }
+        //     },0)
+        // }
+
+        /*
+            第二种方案:先切割数组在进行统计
+                使用slice切割数组,获取用户输入区间的数组
+                针对生成的全新数组,使用reduce进行数据统计
+                    此处函数执行次数(此处假设开始下标5000,结束下标9000):3*(9000-5000+1)=12003
+        */
+        // function sumPager(startIndex,endIndex){
+        //     // slice数组会从第一个参数下标开始截取,但是只会截取到第二个参数下标之前(注意:不包括结束下标元素)
+        //     const newArr = nums.slice(startIndex,endIndex+1);
+
+        //     return newArr.reduce((pre,item)=>{
+        //         return pre + item
+        //     },0)
+        // }
+
+        /*
+            第三种方案:先进行区间求和,在进行统计
+                sumPager(2,5) = sumPager(0,5) - sumPager(0,2-1)
+                                =   sumPager(0,endIndex) - sumPager(0,startIndex-1)
+                1.先进行区间求和
+                    先创建一个全新的空数组,其中的第X项,等于nums数组从0到X的总和
+                    const nums = [-1, 0, 1, 5, 10, -9, -7, 30, -44]
+                    const newArr = [-1, -1, 0, 5, 15, 6, -1 ,29,....];
+                2.进行统计
+                    sumPager(2,5)   =   newArr[5] - newArr[2-1];
+
+                此处执行函数次数:   10000+1*3=10003
+                注意:如果只是用一次,当前方案必输
+        */
+
+        ;(function(){
+            const nums = [-1, 0, 1, 5, 10, -9, -7, 30, -44];
+            const newArr = [];
+
+            nums.forEach((item,index)=>{
+                if(index===0){
+                    newArr.push(item)
+                }else{
+                    newArr.push(newArr[index-1] + item);
+                }
+            })
+
+            function sumPager(startIndex,endIndex){
+                if(startIndex===0){
+                    return newArr[endIndex];
+                }else{
+                    return newArr[endIndex] - newArr[startIndex-1];
+                }
+            }
+
+            window.sumPager = sumPager;
+        })();
+
+
+
+        console.log(sumPager(0,2))
+        console.log(sumPager(2,5))
+        console.log(sumPager(4,7))
+
     </script>
 </body>
 

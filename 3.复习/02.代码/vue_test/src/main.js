@@ -56,6 +56,22 @@ Vue.config.productionTip = false
 //   render: res.render
 // }).$mount('#app')
 
+
+/*
+  可以控制Vue渲染页面结果的地方有三个:
+    1.index.html文件
+    2.new Vue配置对象中的template字符串
+    3.new Vue配置对象中的render函数
+  渲染优先级:render函数 >>> template字符串 >>> index.html
+*/
 new Vue({
+  el:"#app",
+  data(){
+    return {
+      msg: 'hello guigu!!!'
+    }
+  },
+  template:"<h1>haha</h1>",
   render: h => h(App),
-}).$mount('#app')
+})
+// .$mount("#app")
