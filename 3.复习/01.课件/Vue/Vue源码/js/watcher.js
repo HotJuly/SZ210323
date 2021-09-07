@@ -1,24 +1,41 @@
 function Watcher(vm, exp, cb) {
+    // vm, "msg", 
+    // function(value, oldValue) {
+        // this=>vm,"atguigu", "hello mvvm"
+        //     textUpdater && textUpdater(text节点, "atguigu", oldValue);
+        // }
     this.cb = cb;
     this.vm = vm;
     this.exp = exp;
     this.depIds = {};
     this.value = this.get();
+    // this.value="hello mvvm";
 }
 
 Watcher.prototype = {
     update: function() {
+        
+        //     watcher.update();
         this.run();
     },
     run: function() {
+        // 获取当前最新数据的同时,又在重新收集dep和watcher之间的关系
+
+        // 获取到当前最新值
         var value = this.get();
+
+        // 获取到之前的旧数据
         var oldVal = this.value;
         if (value !== oldVal) {
+            // 将当前最新值存入watcher,用于下次使用
             this.value = value;
             this.cb.call(this.vm, value, oldVal);
+            // this.cb.call(vm,"atguigu", "hello mvvm");
         }
     },
     addDep: function(dep) {
+        // watcher.addDep(dep);
+
         // 1. 每次调用run()的时候会触发相应属性的getter
         // getter里面会触发dep.depend()，继而触发这里的addDep
         // 2. 假如相应属性的dep.id已经在当前watcher的depIds里，说明不是一个新的属性，仅仅是改变了其值而已
@@ -34,22 +51,40 @@ Watcher.prototype = {
         // 触发了addDep(), 在整个forEach过程，当前wacher都会加入到每个父级过程属性的dep
         // 例如：当前watcher的是'child.child.name', 那么child, child.child, child.child.name这三个属性的dep都会加入当前watcher
         if (!this.depIds.hasOwnProperty(dep.id)) {
-            dep.addSub(this);
+
+            // depIds对象身上没有当前dep的id,就可以进入
+
+            // watcher的depIds中收集了和他相关的dep
             this.depIds[dep.id] = dep;
+
+            dep.addSub(this);
+            // dep.addSub(watcher实例);
         }
     },
     get: function() {
+        // this=>watcher实例对象
         Dep.target = this;
+        // Dep.target = watcher实例;
+
         var value = this.getVMVal();
+        // var value = "hello mvvm";
+
         Dep.target = null;
         return value;
     },
 
     getVMVal: function() {
+        // 假设exp=>person.name
         var exp = this.exp.split('.');
+        // var exp = "msg".split('.');=["msg"]
+
+        // var exp = "person.name".split('.');=["person","name"]
+
         var val = this.vm._data;
         exp.forEach(function(k) {
             val = val[k];
+            // val = _data["person"];
+            // val = _data["person"]["name"];
         });
         return val;
     }

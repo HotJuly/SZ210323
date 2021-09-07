@@ -115,11 +115,15 @@ function Dep() {
 
 Dep.prototype = {
     addSub: function(sub) {
+        // dep.addSub(watcher实例);
+
+        // 此处dep对象的subs数组成功收集了和他相关的watcher实例
         this.subs.push(sub);
     },
 
     depend: function() {
         Dep.target.addDep(this);
+        // watcher.addDep(dep);
     },
 
     removeSub: function(sub) {
@@ -133,6 +137,11 @@ Dep.prototype = {
         this.subs.forEach(function(sub) {
             sub.update();
         });
+
+        
+        // this.subs.forEach(function(sub) {
+        //     watcher.update();
+        // });
     }
 };
 

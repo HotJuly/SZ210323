@@ -9,8 +9,9 @@
       * 更新显示: 更新data中的属性数据==>页面更新
   --></head>
   <body>
-    <div id="app A">
+    <div id="app">
       <p>{{msg}}</p>
+      <p>{{person.name}}</p>
     </div>
     <script src="./js/observer.js"></script>
     <script src="./js/watcher.js"></script>
@@ -38,9 +39,15 @@
       var vm = new MVVM({
         el: "#app",
         data: {
-          msg: "hello mvvm"
+          msg: "hello mvvm",
+          person:{
+            name:"xiaoming",
+            msg:"123"
+          },
         }
       });
+
+      vm.msg="atguigu";
 
     </script>
   </body>
