@@ -30,9 +30,21 @@ export default {
     HelloWorld
   },
   a:1,
+  beforeCreate(){
+    console.log(this,this.msg,this.$data,this.$el)
+    console.log('-------------beforeCreate------------')
+  },
+  created(){
+    console.log(this,this.msg,this.$data,this.$el)
+    console.log('-------------created------------')
+  },
+  beforeMount(){
+    console.log(this,this.msg,this.$data,this.$el)
+    console.log('-------------beforeMount------------')
+  },
   mounted(){
-    // console.log('mounted',this.$options.a)
-    console.log('App mounted',this.$children)
+    console.log(this,this.msg,this.$data,this.$el)
+    console.log('-------------mounted------------')
   },
   // mixins: [mixin]
   provide:{

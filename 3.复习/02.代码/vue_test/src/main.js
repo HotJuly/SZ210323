@@ -65,13 +65,13 @@ Vue.config.productionTip = false
   渲染优先级:render函数 >>> template字符串 >>> index.html
 */
 new Vue({
-  el:"#app",
+  // el:"#app",
   data(){
     return {
       msg: 'hello guigu!!!'
     }
   },
-  template:"<h1>haha</h1>",
+  // template:"<h1>haha</h1>",
   render: h => h(App),
 })
-// .$mount("#app")
+.$mount("#app")

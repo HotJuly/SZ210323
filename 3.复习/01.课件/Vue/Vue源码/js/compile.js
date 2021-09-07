@@ -8,11 +8,16 @@ function Compile(el, vm) {
         // 此处只做了一件事,将页面上app元素中所有的节点全部转移到文档碎片中
         // app元素被抄家了
         this.$fragment = this.node2Fragment(this.$el);
+
+        // 此处是beforeMount的执行时机
+
         this.init();
         // Vue1.0和2.0的区别
         // Vue1.0中,会将所有的节点解析完之后插入到页面的app节点内部
         // Vue2.0中,会将所有的节点解析完成之后,替换掉页面上的app节点
         this.$el.appendChild(this.$fragment);
+
+        // 此处是mounted的执行时机
     }
 }
 

@@ -1,0 +1,66 @@
+Vue一共有多少个生命周期
+一共11个,常用的是8个
+
+初始化阶段
+beforeCreate
+	beforeCreate之前在初始化事件和初始化生命周期
+
+created
+	发送ajax请求
+		优点:因为执行实际更早,发送更快,自然响应更快,可以更快看到页面请求的内容
+		缺点:如果该阶段做太多事情,可能会导致页面渲染变慢(可能导致白屏时间变长,但是显示请求数据会变快)
+	注意:此处尽量不要执行相对复杂的逻辑操作,防止阻塞页面解析渲染
+
+	beforeCreate之后created之前,Vue在初始化数据代理和数据劫持
+
+beforeMount
+	created之后beforeMount之前,Vue在将template配置项编译成render函数
+mounted
+	发送ajax请求
+	操作DOM
+		Swiper
+		滑动库
+	绑定自定义事件
+
+	beforeMount之后mounted之前,Vue在调用render函数,生成虚拟DOM,
+	在通过虚拟DOM生成真实DOM,并替换掉页面上的el元素
+更新阶段
+beforeUpdate
+updated
+	二次操作真实DOM
+		例如:轮播图数据成功返回,页面会进行重新渲染,此时可以在次创建Swiper实例,实现轮播图效果
+
+卸载阶段
+beforeDestroy
+	解绑事件
+		原生事件
+			例如@click之类的语法,需要经过Vue编译,该类型事件不需要开发者解绑,Vue会自动解绑
+			我们需要解绑的是通过原生DOM事件机制绑定的事件(onclick或者addEventListener)
+		自定义事件
+			例如<HelloWord @input="">或者this.$on绑定的自定义事件,也不需要开发者解绑
+			需要解绑的是全局事件总线上的自定义事件
+				Vue.prototype.$bus = new Vue();
+				this.$bus.$on('a',()=>{})
+				注意:虽然当前组件卸载的时候会将自身身上的所有自定义事件解绑,
+					但是$bus对象不会销毁,自然他身上的事件也不会销毁
+					每个全局事件总线的自定义事件都会携带一个回调函数,如果多次存储
+					最终可能导致内存栈溢出,程序宕机
+				此处特别是后台管理系统,更要注意
+destroyed
+
+keep-alive专用
+activated(激活)
+	由于keep-alive会缓存他内部出现的子组件,所以该子组件二次使用的时候,
+	不会再次进入初始化阶段,所以初始化阶段生命周期全部失效
+deactivated(失活)
+	由于keep-alive会缓存他内部出现的子组件,所以该子组件不会进入卸载阶段
+
+专门用于捕获报错的
+errorCaptured
+	当前生命周期无法捕获自身出现的错误
+Vue.config.errorHandler可以捕获整个项目中出现的错误
+
+
+生命周期注意点
+	Vue的生命周期使用到了策略模式
+	同时每个组件的生命周期对应的内容是数组,数组中存放着该时间需要执行的所有生命周期钩子函数

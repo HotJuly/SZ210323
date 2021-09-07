@@ -22,6 +22,7 @@ function MVVM(options) {
     // 将data对象的地址值保存在三个地方
     // var data = (this._data = this.$options.data);
 
+    // 此处是beforeCreate的执行时机
 
     var me = this; //保存vm给me
 
@@ -82,6 +83,8 @@ function MVVM(options) {
 
     */
     observe(data, this);
+
+    // 此处是created的执行时机
     
     // observe(data, vm);
 
