@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import router from './router';
-
 Vue.config.productionTip = false
 
 
@@ -68,12 +66,11 @@ Vue.config.productionTip = false
 */
 new Vue({
   // el:"#app",
-  // data(){
-  //   return {
-  //     msg: 'hello guigu!!!'
-  //   }
-  // },
-  router,
+  data(){
+    return {
+      msg: 'hello guigu!!!'
+    }
+  },
   // template:"<h1>haha</h1>",
   render: h => h(App),
 })
