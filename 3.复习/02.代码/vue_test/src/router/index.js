@@ -1,12 +1,15 @@
 import Vue from "vue";
 // import VueRouter from "vue-router";
+import JulyRouter from "july-router";
 
-import MyRouter from "../myRouter";
+// import MyRouter from "../myRouter";
 
 import Home from '../components/Home';
 import About from '../components/About';
+import Xixi from '../components/Xixi';
 
-Vue.use(MyRouter);
+// Vue.use(MyRouter);
+Vue.use(JulyRouter);
 
 
 // export default new VueRouter({
@@ -29,7 +32,7 @@ Vue.use(MyRouter);
 //     ]
 // })
 
-export default new MyRouter({
+export default new JulyRouter({
     mode:"history",
     routes:[
         {
@@ -39,12 +42,12 @@ export default new MyRouter({
         {
             path:"/about",
             component:About,
-            // children:[
-            //     {
-            //         path:"xixi",
-            //         component:Xixi
-            //     }
-            // ]
+            children:[
+                {
+                    path:"/about/xixi",
+                    component:Xixi
+                }
+            ]
         }
     ]
 })

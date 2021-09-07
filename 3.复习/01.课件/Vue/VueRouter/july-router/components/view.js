@@ -25,7 +25,7 @@ export default {
         let createElement = parent.$createElement;
 
 
-        while(parent&&parent._routerRoot!=false){
+        while(parent&&parent._routerRoot==false){
             let vnodeData = parent.$vnode?parent.$vnode.data:{};
             if(vnodeData.routerView){
                 // 在向上找的过程中,遇到一个router-view组件,就将depth+1,用来记录当前的router-view用来显示第几级路由

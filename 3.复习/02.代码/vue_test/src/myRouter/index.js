@@ -51,6 +51,7 @@ class MyRouter {
                         "/about":About,
                         "/about/xixi":Xixi
                     }
+                    "/about/xixi".includes("/about/xixi")
         */
         deepMapRoutes.call(this.mapRoutes,this.routes);
         // console.log(this.mapRoutes);
