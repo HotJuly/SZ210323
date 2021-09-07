@@ -2,7 +2,8 @@
   <div id="app">
     <router-view></router-view>
     <router-link to="/home">ToHome</router-link>
-    <router-link to="/about">ToAbout</router-link>
+    <router-link to="/about" tag="h2">ToAbout</router-link>
+    <button @click="toHome">toHome2</button>
   </div>
 </template>
 
@@ -15,6 +16,9 @@ export default {
     }
   },
   methods:{
+    toHome(){
+      this.$router.push('/home')
+    }
   }
 }
 </script>
