@@ -22,12 +22,10 @@ export default {
     handleClick(){
       // this.arr[2] = 4
       // this.arr.splice(2,1,4)
-      // //虽然Vue2取消了对数组下标的数据劫持,但是他提供了一些操作数组的方法,重写了Array身上的同名方法
-      // // push,replace,splice
-      // this.arr[5]=6
-      // delete this.arr[0]
-      // $delete
-      this.$delete(this.arr,0)
+      //虽然Vue2取消了对数组下标的数据劫持,但是他提供了一些操作数组的方法,重写了Array身上的同名方法
+      // push,replace,splice
+      this.arr[5]=6
+      // $set
     }
   }
 }

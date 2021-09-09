@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const $data = {
+            name:"xiaoming",
+            age:18
+        }
+
+
+        const p = new Proxy($data, {
+            set(target,key,value){
+                // console.log(a,b,c)
+                console.log('set')
+                // target[key]=value
+                // dep.notify()
+                Reflect.set(target,key,value);
+            },
+            get(target,key){
+                // return target[key]
+                return Reflect.get(target,key);
+            },
+            deleteProperty(target,key){
+                console.log('deleteProperty');
+                // dep.notify()
+                // delete target[key]
+                Reflect.deleteProperty(target,key);
+            }
+        })
+
+
+        // obj.name="xiaoming12"
+        p.name="xiaoming12"
+        // p.age=19;
+        // p.sex="nan"
+        console.log(p.name)
+        // delete p.name;
+    </script>
+</body>
+</html>
