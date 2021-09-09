@@ -1,8 +1,8 @@
-import "@/index.less";
-import "@/index.css";
+// import "@/index.less";
+// import "@/index.css";
 
-import {add,reduce,mulitp} from '@/lodash.js';
+// import {add,reduce,mulitp} from '@/lodash.js';
 
 
 console.log('hello webpack')
-console.log(add(1,2));
+// console.log(add(1,2));
