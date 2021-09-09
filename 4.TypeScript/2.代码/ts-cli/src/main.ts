@@ -1,134 +1,120 @@
-/*
-    number
-    string
-    boolean
-    undefined
-    null
-
-    ES6+新增:
-    symbol
-    bigint
-*/
-
-let num:number = 123;
-// num="str";   由于当前num变量声明只能存放数字,所以该处会报错
-
-let str:string = "hello";
-// str=undefined;
-
-let flag:boolean = true;
-
-/* 
-    在TS的非严格模式下,undefined和null是所有数据的子类
-    在TS的严格模式下,undefined和null就不再是所有数据的子类
-*/
-let un:undefined = undefined;
-
-let nu:null = null;
-
-// function A(value:string){
-//     return value.length
-// }
-
-// A(123)
-
-let arr:Array<string> = [];
-arr[0]="hello";
-arr[1]="123";
-
-// arr[0].
-
-let arr2:number[] = [];
-arr2[0]=123
-// arr2[0]="123"
-
-/*
-    元组是特殊的数组
-        特殊在,元组的长度和类型都进行了约束
-*/
-
-let arr3:[string,number,boolean] = ["hello",123,true];
-// arr3[0].length;
-// arr3[1].toFixed(0)
-// arr3[3] = 5;
-
-enum City {
-    quanzhou=10,
-    xiamen=18,
-    beijing,
-    深圳=20
-}
-
-const obj={
-    name:"xiaoming",
-    city:"beijing"
-}
-const obj2={
-    name:"xiaoming",
-    city:2
-}
-const obj3={
-    name:"xiaoming",
-    city:null
-}
-
-obj3.city=City['quanzhou'];
-
-console.log(City[obj2.city],obj3.city)
-console.log(City)
-
-/*
-    any类型尽量少用,如果大部分代码都是any,那么ts的类型检测就相当于失效了
-*/
-let o:any = 123;
-o=true;
-
-/*
-    void代表不能存在任何值
-*/
-let v:void = undefined;
-
-function forEach():number{
-    console.log('forEach')
-    return 123;
-}
-
-function map():Array<string>{
-    console.log('forEach')
-    return ['forEach'];
-}
-
-forEach()
-map()
-
-let obj4:object= {
-
-}
-
-let a1:string|number = 123;
-
-function getLength(value:string|number){
+(function () {
     /*
-        如果数据是字符串类型,就返回字符串的length属性
-        如果数据是数字类型,就返回该数字
-
-        类型断言
-            跟VScode解析器声明某个变量的类型
+        现在有一个对象,要求该对象必须具有name和age和sex属性,可能具有phone属性,其中sex不能修改
     */
-   if((<string>value).length){
-       return (value as string).length
-   }else{
-       return value
-   }
-}
+
+    /*
+        普通接口
+            主要作用,提前声明该类型的对象具有哪些属性,如果对象缺少任何属性都会报错
+            接口内的所有属性,如果没有特殊情况都必须传入
+            ?代表该属性可选,可传可不传
+
+        面试题:readonly和const的区别
+            const定义的是常量(变量),他主要是禁止变量的值发生变化
+                可以修改对象内部的数据,只要不改变地址值就没事
+                const obj={}
+                obj.name=123;
+            readonly定义的是属性,当前属性的值不能发生变化
+    */
+    interface IPerson {
+        name: string;
+        age: number;
+        phone?: number;
+        readonly sex: any;
+    }
 
 
-getLength(123);
+    let obj: IPerson = {
+        name: "xiaoming",
+        age: 18,
+        phone: 123123,
+        sex: {
+            address: 123
+        }
+    }
 
-/*
-    当一个变量声明的时候没有声明类型,同时还进行了赋值操作
-    他会自动将赋值的结果的数据类型,作为该变量的类型约束
-*/
-let num1;
-num1= 123;
-num1="hello";
+    // let obj2:IPerson = {
+    //     name:"xiaoming",
+    //     age:18,
+    //     sex:"女"
+    // }
+
+    obj.sex.address = 345
+})();
+
+(function () {
+
+    /*
+        函数接口
+            可以约束函数所接收到的参数数据类型,还有函数的返回值类型
+    */
+    interface IA {
+        (a: number, b: string): string
+    }
+
+    // function A(a,b):IA{
+    //     return a+b
+    // }
+
+    const A: IA = function (a, b) {
+        return a + b
+    }
+
+
+    A(1, "2")
+})();
+
+(function () {
+    /*
+        类接口
+            可以通过接口约束一个class中所必须具有的方法和属性
+    
+    */
+    // interface Alarm {
+    //     id:string;
+    //     alert(): any;
+    // }
+
+    // interface B{
+    //     username:string;
+    // }
+
+    // class Car implements Alarm,B {
+    //     id:string;
+    //     username:string;
+
+    //     constructor(id,username){
+    //         this.id=id;
+    //         this.username=username;
+    //     }
+    //     alert(){
+    //         console.log('alert')
+    //     }
+    // }
+    // new Car('粤A000001','chh')
+
+    
+
+    interface B{
+        username:string;
+    }
+
+    interface Alarm extends B {
+        id:string;
+        alert(): any;
+    }
+
+    class Car implements Alarm {
+        id:string;
+        username:string;
+
+        constructor(id,username){
+            this.id=id;
+            this.username=username;
+        }
+        alert(){
+            console.log('alert')
+        }
+    }
+    new Car('粤A000001','chh')
+})();
